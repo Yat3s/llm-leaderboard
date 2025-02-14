@@ -8,9 +8,8 @@ const rootDir = join(__dirname, "../..");
 dotenv.config({ path: join(rootDir, ".env") });
 
 import { TEST_CASES } from "~/constants/test-cases";
+import { runBenchmarks } from "~/lib/benchmark";
 import { getModelProviders } from "../constants/llm-providers";
-import { runBenchmarks } from "../lib/benchmark";
-
 async function main() {
     // Verify required environment variables
     const requiredEnvVars = [
@@ -37,7 +36,6 @@ async function main() {
 
     console.log("Starting LLM Benchmark test...\n");
 
-    // 获取 model providers
     const modelProviders = getModelProviders();
 
     // Run each test case

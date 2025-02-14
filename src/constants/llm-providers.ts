@@ -3,6 +3,7 @@ export type ModelProvider = {
     name: string;
     apiKey: string;
     baseUrl: string;
+    apiModel: string; // The model name in the provider's API
     model: string;
 };
 
@@ -41,7 +42,8 @@ export function getModelProviders(): ModelProvider[] {
             name: "腾讯云",
             apiKey: process.env.TENCENT_API_KEY!.trim(),
             baseUrl: "https://api.lkeap.cloud.tencent.com/v1",
-            model: "deepseek-r1"
+            model: "deepseek-r1",
+            apiModel: "deepseek-r1"
         }
     ];
 }

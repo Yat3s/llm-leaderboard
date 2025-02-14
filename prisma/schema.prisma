@@ -73,30 +73,23 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model BenchmarkCase {
-    id          String   @id @default(cuid())
-    name        String   @unique
-    description String
-    prompt      String
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+model ProviderBenchmarkResult {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
 
-    results BenchmarkResult[]
-}
+    providerId String
+    model      String
 
-model BenchmarkResult {
-    id              String        @id @default(cuid())
-    llmProviderId   String
-    model           String
-    benchmarkId     String
-    benchmark       BenchmarkCase @relation(fields: [benchmarkId], references: [id])
-    latency         Float
-    tokensPerSecond Float
-    totalTokens     Int
-    success         Boolean
-    errorMessage    String?
-    createdAt       DateTime      @default(now())
+    testPrompt String // The test prompt used for this benchmark
 
-    @@index([benchmarkId])
+    firstTokenTime Int?
+    reasoningTime  Int
+    contentTime    Int
+    totalTime      Int
+
+    reasoningTokens Int
+    contentTokens   Int
+    overallTokens   Int
+
     @@index([createdAt])
 }

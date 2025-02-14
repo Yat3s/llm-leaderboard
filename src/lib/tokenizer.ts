@@ -1,4 +1,4 @@
-import { encoding_for_model, TiktokenModel } from "tiktoken";
+import { encodingForModel, TiktokenModel } from "js-tiktoken";
 
 /**
  * Count tokens in text. Uses tiktoken for OpenAI models if available,
@@ -17,10 +17,9 @@ export function countTokenLength(
     } = options;
 
     try {
-        const enc = encoding_for_model(model);
+        const enc = encodingForModel(model);
         const tokens = enc.encode(text);
         const count = tokens.length;
-        enc.free();
         return count;
     } catch (error) {
         // Fallback to simple counting for other providers

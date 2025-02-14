@@ -1,29 +1,74 @@
-# Create T3 App
+# LLM Leaderboard
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A comprehensive platform for benchmarking and comparing Large Language Models (LLMs) across different providers. This project helps developers and researchers evaluate LLM performance, costs, and capabilities.
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- Real-time benchmarking of LLM providers
+- Performance metrics tracking (latency, tokens/sec)
+- Provider comparison dashboard
+- Historical performance data
+- Authentication for running custom benchmarks
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- [Next.js](https://nextjs.org) - React framework for web applications
+- [NextAuth.js](https://next-auth.js.org) - Authentication solution
+- [Prisma](https://prisma.io) - Type-safe database ORM
+- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
+- [tRPC](https://trpc.io) - End-to-end typesafe APIs
+- [OpenAI SDK](https://github.com/openai/openai-node) - For LLM API interactions
 
-## Learn More
+## Getting Started
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+1. Clone the repository
+2. Install dependencies:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+```bash
+pnpm install
+```
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+3. Set up your environment variables:
 
-## How do I deploy this?
+```bash
+cp .env.example .env
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Required environment variables:
+
+- `DATABASE_URL`
+- `DEEPSEEK_API_KEY`
+- `ALIBABA_API_KEY`
+- `SILICONFLOW_API_KEY`
+- `VOLCENGINE_API_KEY`
+- `TENCENT_API_KEY`
+
+4. Initialize the database:
+
+```bash
+pnpm db:push
+```
+
+5. Run the development server:
+
+```bash
+pnpm dev
+```
+
+## Running Benchmarks Locally
+
+To run benchmarks against supported LLM providers:
+
+```bash
+pnpm benchmark
+```
+
+This will execute the test suite and output performance metrics for each provider.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+MIT License - feel free to use this project for your own purposes.

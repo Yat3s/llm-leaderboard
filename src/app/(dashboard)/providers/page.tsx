@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   Table,
   TableBody,
@@ -24,15 +25,25 @@ export default function ProviderPage() {
     .map((query) => query.data?.createdAt)
     .sort((a, b) => (b?.getTime() ?? 0) - (a?.getTime() ?? 0))[0];
 
+  const runTestBenchmark = api.benchmark.testRunBenchmark.useMutation();
+
   return (
     <div className="container mx-auto py-10">
-      <div className="flex items-end justify-between">
-        <h1 className="mb-8 text-3xl font-bold">DeepSeek R1 供应商性能</h1>
+      <button
+        className="mb-2 rounded-md bg-blue-500 px-4 py-2 text-white"
+        onClick={() => {
+          runTestBenchmark.mutate();
+        }}
+      >
+        运行测试
+      </button>
+      <div className="flex items-end gap-2">
+        <h1 className="text-xl font-bold">DeepSeek R1 供应商性能</h1>
         <p className="text-sm text-gray-500">
           上次更新于: {lastUpdated?.toLocaleString()}
         </p>
       </div>
-      <div className="mt-1 rounded-md border">
+      <div className="mt-2 rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -52,38 +63,47 @@ export default function ProviderPage() {
               if (query.isLoading) {
                 return (
                   <TableRow key={provider.id}>
-                    <TableCell>{provider.name}</TableCell>
+                    <TableCell className="flex items-center gap-2">
+                      <Image
+                        src={provider.logo}
+                        alt={provider.name}
+                        width={32}
+                        height={32}
+                      />
+                      {provider.name}
+                    </TableCell>
                     <TableCell colSpan={6}>Loading...</TableCell>
                   </TableRow>
                 );
               }
 
-              if (!result) {
-                return (
-                  <TableRow key={provider.id}>
-                    <TableCell>{provider.name}</TableCell>
-                    <TableCell colSpan={6}>No data available</TableCell>
-                  </TableRow>
-                );
-              }
-
-              const tokensPerSecond = (
-                result.overallTokens /
-                (result.totalTime / 1000)
-              ).toFixed(2);
-              const reasoningTokensPerSecond = (
-                result.reasoningTokens /
-                (result.reasoningTime / 1000)
-              ).toFixed(2);
-              const contentTokensPerSecond = (
-                result.contentTokens /
-                (result.contentTime / 1000)
-              ).toFixed(2);
+              const tokensPerSecond = result
+                ? (result.overallTokens / (result.totalTime / 1000)).toFixed(2)
+                : "N/A";
+              const reasoningTokensPerSecond = result
+                ? (
+                    result.reasoningTokens /
+                    (result.reasoningTime / 1000)
+                  ).toFixed(2)
+                : "N/A";
+              const contentTokensPerSecond = result
+                ? (result.contentTokens / (result.contentTime / 1000)).toFixed(
+                    2,
+                  )
+                : "N/A";
               return (
                 <TableRow key={provider.id}>
-                  <TableCell>{provider.name}</TableCell>
+                  <TableCell className="flex items-center gap-2">
+                    <Image
+                      src={provider.logo}
+                      alt={provider.name}
+                      width={36}
+                      height={36}
+                    />
+                    {provider.name}
+                  </TableCell>
                   <TableCell>
-                    {result.firstTokenTime
+                    {result?.firstTokenTime
                       ? (result.firstTokenTime / 1000).toFixed(2)
                       : "N/A"}
                   </TableCell>

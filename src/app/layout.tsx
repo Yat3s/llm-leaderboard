@@ -23,7 +23,11 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider attribute="class" enableSystem>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <main className="flex min-h-screen flex-col items-center">
+              {children}
+            </main>
+          </TRPCReactProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,4 +1,3 @@
-import geoip from 'geoip-lite'
 import os from 'os'
 
 export function getEnvIp() {
@@ -18,7 +17,7 @@ export function getEnvIp() {
     return "127.0.0.1";
 }
 
-export function getEnvRegion() {
+export async function getEnvRegion(): Promise<string> {
     const ip = getEnvIp();
 
     // Skip lookup for localhost/private IPs
@@ -27,10 +26,11 @@ export function getEnvRegion() {
     }
 
     try {
-        const geo = geoip.lookup(ip);
-        if (geo) {
-            // Return the region or country code if region is not available
-            return geo.region || geo.country || "unknown";
+        const response = await fetch(`https://ipapi.co/${ip}/json/`);
+        const data = await response.json();
+
+        if (!data.error && data.region) {
+            return data.region.toLowerCase();
         }
     } catch (error) {
         console.warn("Failed to lookup IP geolocation:", error);

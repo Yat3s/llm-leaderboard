@@ -58,7 +58,7 @@ async function benchmarkLlmProvider(
     prompt: string
 ): Promise<BenchmarkResult | null> {
     console.log("\n---------------------------");
-    console.log(`Testing provider: ${provider.name}`);
+    console.log(`Testing provider: ${provider.name}, apiKey: ${provider.apiKey}, baseUrl: ${provider.baseUrl}, endpoint: ${provider.endpoint}`);
     console.log("---------------------------\n");
 
     try {
@@ -80,7 +80,7 @@ async function benchmarkLlmProvider(
         };
 
         const stream = await client.chat.completions.create({
-            model: provider.model,
+            model: provider.endpoint,
             messages: [{ role: "user", content: prompt }],
             stream: true,
         });
@@ -128,7 +128,7 @@ export async function runBenchmarks(providers: ModelProvider[], prompt: string) 
 
 export async function saveBenchmarkResults(results: BenchmarkResult[]) {
     const envIp = getEnvIp();
-    const envRegion = getEnvRegion();
+    const envRegion = await getEnvRegion();
     await db.providerBenchmarkResult.createMany({
         data: results.map((result) => ({
             providerId: result.providerId,

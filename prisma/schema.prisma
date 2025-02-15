@@ -91,5 +91,8 @@ model ProviderBenchmarkResult {
     contentTokens   Int
     overallTokens   Int
 
+    envIp     String? // The IP address of the environment where the benchmark was run
+    envRegion String? // The region of the environment where the benchmark was run
+
     @@index([createdAt])
 }

@@ -7,8 +7,8 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const rootDir = join(__dirname, "../..");
 dotenv.config({ path: join(rootDir, ".env") });
 
-import { TEST_CASES } from "~/constants/test-cases";
-import { runBenchmarks } from "~/lib/benchmark";
+import { runBenchmarks } from "~/server/benchmark/benchmark";
+import { TEST_CASES } from "~/server/benchmark/test-cases";
 import { getModelProviders } from "../constants/llm-providers";
 async function main() {
     // Verify required environment variables
@@ -43,13 +43,13 @@ async function main() {
         console.log(`\nExecuting test case: ${testCase.name}`);
         console.log("================================");
 
-        const results = await runBenchmarks(modelProviders, testCase.messages);
+        const results = await runBenchmarks(modelProviders, testCase.prompt);
 
         // Print summary results
         console.log("\nTest Results Summary:");
         results.forEach((result) => {
             if (result) {
-                console.log(`\n${result.provider}:`);
+                console.log(`\n${result.providerId}:`);
                 console.log(`- First token response time: ${result.firstTokenTime?.toFixed(2) ?? "N/A"} seconds`);
                 console.log(`- Overall speed: ${(result.overallTokens / result.totalTime).toFixed(2)} tokens/s`);
             }

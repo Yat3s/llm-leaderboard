@@ -40,18 +40,18 @@ export function logMetrics(provider: string, metrics: StreamingMetrics, times: {
     console.log(
         `Reasoning part: ${metrics.reasoningTokens} tokens, ` +
         `time: ${times.reasoningTime} ms, ` +
-        `generation speed: ${(times.reasoningTime > 0 ? metrics.reasoningTokens / times.reasoningTime / 1000 : 0)} tokens/s`
+        `generation speed: ${(times.reasoningTime > 0 ? metrics.reasoningTokens / (times.reasoningTime / 1000) : 0)} tokens/s`
     );
 
     console.log(
         `Content part: ${metrics.contentTokens} tokens, ` +
         `time: ${times.contentTime} ms, ` +
-        `generation speed: ${(times.contentTime > 0 ? metrics.contentTokens / times.contentTime / 1000 : 0)} tokens/s`
+        `generation speed: ${(times.contentTime > 0 ? metrics.contentTokens / (times.contentTime / 1000) : 0)} tokens/s`
     );
 
     console.log(
         `Overall generation: ${metrics.overallTokens} tokens, ` +
         `total time: ${times.totalTime} ms, ` +
-        `generation speed: ${(times.totalTime > 0 ? metrics.overallTokens / times.totalTime / 1000 : 0)} tokens/s`
+        `generation speed: ${(times.totalTime > 0 ? metrics.overallTokens / (times.totalTime / 1000) : 0)} tokens/s`
     );
 }

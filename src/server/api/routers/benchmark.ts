@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 import { getModelProviders } from "~/constants/llm-providers";
-import { TEST_CASES } from "~/constants/test-cases";
-import { runBenchmarks, saveBenchmarkResults } from "~/lib/benchmark";
+import { runBenchmarks, saveBenchmarkResults } from "~/server/benchmark/benchmark";
+import { TEST_CASES } from "~/server/benchmark/test-cases";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const benchmarkRouter = createTRPCRouter({

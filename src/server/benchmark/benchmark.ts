@@ -1,12 +1,13 @@
 import OpenAI from "openai";
 import { db } from "~/server/db";
-import { type ModelProvider } from "../constants/llm-providers";
+import { type ModelProvider } from "../../constants/llm-providers";
+import { getEnvIp, getEnvRegion } from "../utils";
 import { calculateTimes, logMetrics, StreamingMetrics } from "./metric";
 import { countTokenLength } from "./tokenizer";
 
 export interface BenchmarkResult {
     model: string;
-    provider: string;
+    providerId: string;
     testPrompt: string;
     firstTokenTime: number | null;
     reasoningTokens: number;
@@ -95,7 +96,7 @@ async function benchmarkLlmProvider(
 
         return {
             model: provider.model,
-            provider: provider.name,
+            providerId: provider.id,
             testPrompt: prompt,
             firstTokenTime: metrics.firstTokenTime ? metrics.firstTokenTime : null,
             reasoningTokens: metrics.reasoningTokens,
@@ -126,9 +127,11 @@ export async function runBenchmarks(providers: ModelProvider[], prompt: string) 
 }
 
 export async function saveBenchmarkResults(results: BenchmarkResult[]) {
+    const envIp = getEnvIp();
+    const envRegion = getEnvRegion();
     await db.providerBenchmarkResult.createMany({
         data: results.map((result) => ({
-            providerId: result.provider,
+            providerId: result.providerId,
             model: result.model,
             testPrompt: result.testPrompt,
             firstTokenTime: result.firstTokenTime,
@@ -138,6 +141,8 @@ export async function saveBenchmarkResults(results: BenchmarkResult[]) {
             contentTime: result.contentTime,
             overallTokens: result.overallTokens,
             totalTime: result.totalTime,
+            envIp: envIp,
+            envRegion: envRegion,
         })),
     });
 }

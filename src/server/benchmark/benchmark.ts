@@ -58,13 +58,13 @@ async function benchmarkLlmProvider(
     prompt: string
 ): Promise<BenchmarkResult | null> {
     console.log("\n---------------------------");
-    console.log(`Testing provider: ${provider.name}, apiKey: ${provider.apiKey}, baseUrl: ${provider.baseUrl}, endpoint: ${provider.endpoint}`);
+    console.log(`Testing provider: ${provider.name}, apiKey: ${provider.platform.apiKey}, baseUrl: ${provider.platform.baseUrl}, endpoint: ${provider.platform.endpoint}`);
     console.log("---------------------------\n");
 
     try {
         const client = new OpenAI({
-            apiKey: provider.apiKey,
-            baseURL: provider.baseUrl,
+            apiKey: provider.platform.apiKey,
+            baseURL: provider.platform.baseUrl,
         });
 
         const metrics = {
@@ -80,7 +80,7 @@ async function benchmarkLlmProvider(
         };
 
         const stream = await client.chat.completions.create({
-            model: provider.endpoint,
+            model: provider.platform.endpoint,
             messages: [{ role: "user", content: prompt }],
             stream: true,
         });
@@ -95,7 +95,7 @@ async function benchmarkLlmProvider(
         console.log("\n---------------------------\n");
 
         return {
-            model: provider.model,
+            model: provider.platform.model,
             providerId: provider.id,
             testPrompt: prompt,
             firstTokenTime: metrics.firstTokenTime ? metrics.firstTokenTime : null,

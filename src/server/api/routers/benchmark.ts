@@ -7,25 +7,27 @@ import { TEST_CASES } from "~/server/benchmark/test-cases";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const benchmarkRouter = createTRPCRouter({
-    fetchLatestByProvider: publicProcedure
+    fetchRecentByProviders: publicProcedure
         .input(
             z.object({
-                providerId: z.string(),
+                providerIds: z.array(z.string()),
                 model: z.string(),
             })
         )
         .query(async ({ ctx, input }) => {
             const results = await ctx.db.providerBenchmarkResult.findMany({
                 where: {
-                    providerId: input.providerId,
+                    providerId: {
+                        in: input.providerIds
+                    },
                     model: input.model,
                 },
                 orderBy: {
                     createdAt: "desc",
                 },
-                take: 1,
+                take: input.providerIds.length * 2,
             });
-            return results[0];
+            return results;
         }),
 
     testRunBenchmark: publicProcedure

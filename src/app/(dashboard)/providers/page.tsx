@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { ModelBenchmarkTable } from "~/components/model-benchmark-table";
 import {
   Table,
   TableBody,
@@ -82,6 +83,7 @@ export default function ProviderPage() {
     <div className="container mx-auto space-y-12 py-10">
       <ProviderPerformanceTable />
       <ProviderPricingTable />
+      <ModelBenchmarkTable />
     </div>
   );
 }
@@ -103,7 +105,7 @@ const ProviderPricingTable = () => {
       <div className="flex items-end gap-2">
         <h1 className="text-4xl font-bold">DeepSeek R1 价格</h1>
       </div>
-      <div className="shadow-muted/50 mt-6 rounded-lg border p-4 shadow-md">
+      <div className="mt-6 rounded-lg border p-4 shadow-md shadow-muted/50">
         <Table>
           <TableHeader>
             <TableRow>
@@ -216,7 +218,7 @@ const ProviderPerformanceTable = () => {
           上次更新于: {lastUpdated?.toLocaleString()}
         </p>
       </div>
-      <div className="shadow-muted/50 mt-6 rounded-lg border p-4 shadow-md">
+      <div className="mt-6 rounded-lg border p-4 shadow-md shadow-muted/50">
         <Table>
           <TableHeader>
             <TableRow>

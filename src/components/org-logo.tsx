@@ -20,7 +20,7 @@ const orgLogos: OrgLogo[] = [
   { name: "amazon", light: "amazon.svg", dark: "amazon-dark.svg" },
   { name: "microsoft", light: "microsoft.svg" },
   { name: "nvidia", light: "nvidia.svg" },
-  { name: "xai", light: "xai.svg" },
+  { name: "xai", light: "xai.svg", dark: "xai-dark.png" },
   { name: "qwen", light: "qwen.png" },
   { name: "ai21", light: "ai21.jpg" },
   { name: "moonshotai", light: "moonshotai.jpg" },

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeToggle } from "~/components/theme-toggle";
-import { Tabs } from "~/components/ui/tabs";
 const tabs = [
   { href: "/benchmark", label: "Benchmark" },
   { href: "/providers", label: "服务商" },
@@ -42,7 +41,8 @@ export default function DashboardLayout({
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-b from-transparent to-background" />
       </div>
       <div className="container flex flex-col items-center">
-        <Tabs tabs={tabs} />
+        {/* Hide tabs for now */}
+        {/* <Tabs tabs={tabs} /> */}
 
         <div className="mt-6 w-full">{children}</div>
       </div>

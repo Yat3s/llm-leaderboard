@@ -12,8 +12,8 @@ export interface ModelBenchmark {
     paperLink: string | null;
     multimodal: number;
     scorecardBlogLink: string | null;
-    pricePerInputToken: number;
-    pricePerOutputToken: number;
+    pricePerInputToken: number | null;
+    pricePerOutputToken: number | null;
     benchmarks: BenchmarkScore[];
 }
 

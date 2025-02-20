@@ -7,7 +7,7 @@ import { TEST_CASES } from "~/server/benchmark/test-cases";
 import { type ModelBenchmark } from "~/types/model";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
-const CACHE_EXPIRATION_TIME = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+const CACHE_EXPIRATION_TIME = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds
 
 export const benchmarkRouter = createTRPCRouter({
     fetchRecentByProviders: publicProcedure
@@ -59,10 +59,14 @@ export const benchmarkRouter = createTRPCRouter({
 
                 // Check if cache exists and is less than 3 days old
                 if (latestCache && latestCache.createdAt > new Date(Date.now() - CACHE_EXPIRATION_TIME)) {
-                    return JSON.parse(latestCache.cacheJson) as ModelBenchmark[];
+                    return {
+                        modelBenchmarks: JSON.parse(latestCache.cacheJson) as ModelBenchmark[],
+                        updatedAt: latestCache.createdAt
+                    };
                 }
 
                 // Fetch fresh data if cache is expired or doesn't exist
+                // Credit to https://llm-stats.com
                 const response = await fetch('https://llm-stats.com/api/models?metrics=true&justCanonicals=true');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -102,7 +106,10 @@ export const benchmarkRouter = createTRPCRouter({
                     }
                 });
 
-                return modelBenchmarks;
+                return {
+                    modelBenchmarks,
+                    updatedAt: latestCache?.createdAt ?? new Date(),
+                };
             } catch (error) {
                 console.error('Error fetching model benchmarks:', error);
                 throw error;

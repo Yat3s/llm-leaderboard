@@ -6,6 +6,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "~/components/ui/pagination";
+import {
   Table,
   TableBody,
   TableCell,
@@ -32,6 +41,8 @@ type SortDirection = "asc" | "desc";
 export const ModelBenchmarkTable = () => {
   const [sortField, setSortField] = useState<SortField>("GPQA");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
 
   const { data: modelBenchmarks, isLoading } =
     api.benchmark.fetchModelBenchmarks.useQuery();
@@ -63,6 +74,12 @@ export const ModelBenchmarkTable = () => {
         return sortDirection === "desc" ? bValue - aValue : aValue - bValue;
       })
     : [];
+
+  const totalPages = Math.ceil((sortedBenchmarks?.length || 0) / itemsPerPage);
+  const paginatedBenchmarks = sortedBenchmarks.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -108,7 +125,7 @@ export const ModelBenchmarkTable = () => {
       <div className="flex items-end gap-2">
         <h1 className="text-4xl font-bold">模型性能对比</h1>
       </div>
-      <div className="mt-6 h-[calc(100vh-12rem)] overflow-y-auto">
+      <div className="mt-6">
         <div className="overflow-x-auto">
           <div className="min-w-max rounded-lg border p-4 shadow-md shadow-muted/50">
             <Table>
@@ -141,7 +158,7 @@ export const ModelBenchmarkTable = () => {
                     </TableCell>
                   </TableRow>
                 ) : (
-                  sortedBenchmarks.map((model) => (
+                  paginatedBenchmarks.map((model) => (
                     <TableRow key={model.modelId}>
                       <TableCell className="sticky left-0 bg-background font-medium">
                         <div className="flex items-center gap-2">
@@ -218,6 +235,66 @@ export const ModelBenchmarkTable = () => {
               </TableBody>
             </Table>
           </div>
+        </div>
+        <div className="mt-4 flex justify-center">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className={
+                    currentPage === 1
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer"
+                  }
+                />
+              </PaginationItem>
+
+              {[...Array(totalPages)].map((_, i) => {
+                const page = i + 1;
+                // Show first page, last page, current page, and pages around current
+                if (
+                  page === 1 ||
+                  page === totalPages ||
+                  (page >= currentPage - 1 && page <= currentPage + 1)
+                ) {
+                  return (
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        onClick={() => setCurrentPage(page)}
+                        isActive={currentPage === page}
+                      >
+                        {page}
+                      </PaginationLink>
+                    </PaginationItem>
+                  );
+                } else if (
+                  page === currentPage - 2 ||
+                  page === currentPage + 2
+                ) {
+                  return (
+                    <PaginationItem key={page}>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  );
+                }
+                return null;
+              })}
+
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() =>
+                    setCurrentPage((p) => Math.min(totalPages, p + 1))
+                  }
+                  className={
+                    currentPage === totalPages
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer"
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </motion.div>

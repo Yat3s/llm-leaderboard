@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpDown } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
@@ -24,6 +23,7 @@ import {
 } from "~/components/ui/table";
 import { api } from "~/trpc/react";
 import { type ModelBenchmark } from "~/types/model";
+import { OrgLogo } from "./org-logo";
 
 type SortField =
   | "throughput"
@@ -161,30 +161,22 @@ export const ModelBenchmarkTable = () => {
                   paginatedBenchmarks.map((model) => (
                     <TableRow key={model.modelId}>
                       <TableCell className="sticky left-0 bg-background font-medium">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-4">
                           <div className="relative h-6 w-6 flex-shrink-0">
-                            <Image
-                              src={`https://llm-stats.com/logos/${model.organization}.svg`}
-                              alt={`${model.organization} logo`}
-                              fill
-                              className="object-contain"
-                              onError={(e) => {
-                                (e.target as HTMLImageElement).style.display =
-                                  "none";
-                              }}
-                            />
+                            <OrgLogo org={model.organization} />
                           </div>
                           <div>
-                            {model.name}
-                            {model.scorecardBlogLink && (
+                            {model.scorecardBlogLink ? (
                               <a
                                 href={model.scorecardBlogLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="ml-2 text-xs text-blue-500 hover:underline"
+                                className="hover:underline"
                               >
-                                详情
+                                {model.name}
                               </a>
+                            ) : (
+                              model.name
                             )}
                           </div>
                         </div>

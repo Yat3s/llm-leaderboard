@@ -81,9 +81,9 @@ const calculateAverageBenchmarks = (
 export default function ProviderPage() {
   return (
     <div className="container mx-auto space-y-12 py-10">
+      <ModelBenchmarkTable />
       <ProviderPerformanceTable />
       <ProviderPricingTable />
-      <ModelBenchmarkTable />
     </div>
   );
 }

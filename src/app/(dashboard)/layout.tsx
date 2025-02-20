@@ -3,8 +3,8 @@ import Link from "next/link";
 import { ThemeToggle } from "~/components/theme-toggle";
 import { Tabs } from "~/components/ui/tabs";
 const tabs = [
+  { href: "/benchmark", label: "Benchmark" },
   { href: "/providers", label: "服务商" },
-  { href: "/models", label: "LLM 模型" },
 ];
 
 export default function DashboardLayout({
@@ -13,10 +13,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="bg-background flex w-full flex-col items-center">
+    <main className="flex w-full flex-col items-center bg-background">
       <div className="relative flex w-full flex-col items-center bg-[linear-gradient(to_right,#f3f4f6_1px,transparent_1px),linear-gradient(to_bottom,#f3f4f6_1px,transparent_1px)] bg-[size:4rem_4rem] px-4 pb-16 pt-24 dark:bg-black dark:bg-[linear-gradient(to_right,#222222_1px,transparent_1px),linear-gradient(to_bottom,#222222_1px,transparent_1px)]">
         <h1 className="mb-2 text-7xl font-bold">LLM Leaderboard</h1>
-        <p className="text-muted-foreground mt-2 text-xl">
+        <p className="mt-2 text-xl text-muted-foreground">
           Analyze and compare AI models across benchmarks, pricing, and
           capabilities.
         </p>
@@ -39,7 +39,7 @@ export default function DashboardLayout({
           </Link>
           <ThemeToggle />
         </div>
-        <div className="to-background pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-b from-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-b from-transparent to-background" />
       </div>
       <div className="container flex flex-col items-center">
         <Tabs tabs={tabs} />

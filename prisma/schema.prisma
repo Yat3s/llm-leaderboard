@@ -96,3 +96,10 @@ model ProviderBenchmarkResult {
 
     @@index([createdAt])
 }
+
+model ModelBenchmarkData {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    cacheJson String
+}

@@ -7,6 +7,8 @@ import { TEST_CASES } from "~/server/benchmark/test-cases";
 import { type ModelBenchmark } from "~/types/model";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
+const CACHE_EXPIRATION_TIME = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+
 export const benchmarkRouter = createTRPCRouter({
     fetchRecentByProviders: publicProcedure
         .input(
@@ -46,15 +48,28 @@ export const benchmarkRouter = createTRPCRouter({
         }),
 
     fetchModelBenchmarks: publicProcedure
-        .query(async () => {
+        .query(async ({ ctx }) => {
             try {
+                // Get the latest cache entry
+                const latestCache = await ctx.db.modelBenchmarkData.findFirst({
+                    orderBy: {
+                        createdAt: 'desc'
+                    }
+                });
+
+                // Check if cache exists and is less than 3 days old
+                if (latestCache && latestCache.createdAt > new Date(Date.now() - CACHE_EXPIRATION_TIME)) {
+                    return JSON.parse(latestCache.cacheJson) as ModelBenchmark[];
+                }
+
+                // Fetch fresh data if cache is expired or doesn't exist
                 const response = await fetch('https://llm-stats.com/api/models?metrics=true&justCanonicals=true');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
 
-                return data.map((model: any) => ({
+                const modelBenchmarks = data.map((model: any) => ({
                     modelId: model.model_id,
                     name: model.name,
                     organization: model.organization,
@@ -79,6 +94,15 @@ export const benchmarkRouter = createTRPCRouter({
                         sourceLink: benchmark.source_link,
                     })),
                 })) as ModelBenchmark[];
+
+                // Save new cache
+                await ctx.db.modelBenchmarkData.create({
+                    data: {
+                        cacheJson: JSON.stringify(modelBenchmarks)
+                    }
+                });
+
+                return modelBenchmarks;
             } catch (error) {
                 console.error('Error fetching model benchmarks:', error);
                 throw error;

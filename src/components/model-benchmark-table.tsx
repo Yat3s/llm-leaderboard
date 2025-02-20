@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpDown, Check, X } from "lucide-react";
+import { ArrowUpDown, Check, HelpCircle, RefreshCcw, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
@@ -21,6 +21,12 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 import { api } from "~/trpc/react";
 import { type ModelBenchmark } from "~/types/model";
 import { OrgLogo } from "./org-logo";
@@ -105,25 +111,39 @@ export const ModelBenchmarkTable = () => {
   const SortableHeader = ({
     field,
     children,
+    tooltip,
   }: {
     field: SortField;
     children: React.ReactNode;
+    tooltip: string;
   }) => (
     <TableHead>
-      <Button
-        variant="ghost"
-        onClick={() => handleSort(field)}
-        className={`h-8 px-2 ${
-          sortField === field
-            ? "font-bold text-foreground"
-            : "text-muted-foreground"
-        }`}
-      >
-        {children}
-        <ArrowUpDown
-          className={`ml-1 h-4 w-4 ${sortField === field ? "opacity-100" : "opacity-50"}`}
-        />
-      </Button>
+      <div className="flex items-center">
+        <Button
+          variant="ghost"
+          onClick={() => handleSort(field)}
+          className={`flex h-8 items-center px-2 ${
+            sortField === field
+              ? "font-bold text-foreground"
+              : "text-muted-foreground"
+          }`}
+        >
+          {children}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <HelpCircle className="h-2 w-2 text-muted-foreground/50" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{tooltip}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <ArrowUpDown
+            className={`ml-1 h-3 w-3 ${sortField === field ? "opacity-100" : "opacity-50"}`}
+          />
+        </Button>
+      </div>
     </TableHead>
   );
 
@@ -139,9 +159,10 @@ export const ModelBenchmarkTable = () => {
       }}
     >
       <div className="space-y-2">
-        <h1 className="text-4xl font-bold">Benchmark Leaderboard</h1>
-        <p className="text-sm text-muted-foreground">
-          数据更新于 {benchmark?.updatedAt.toLocaleString()}
+        <h1 className="text-4xl font-bold">Benchmark</h1>
+        <p className="flex items-center text-sm text-muted-foreground">
+          数据更新于 {benchmark?.updatedAt.toLocaleString()}{" "}
+          <RefreshCcw className="mx-2 inline-block h-3 w-3" />每 2 天自动更新
         </p>
       </div>
       <div className="mt-6">
@@ -151,25 +172,66 @@ export const ModelBenchmarkTable = () => {
               <TableHeader className="bg-background">
                 <TableRow>
                   <TableHead className="bg-background">模型</TableHead>
-                  <SortableHeader field="GPQA">GPQA</SortableHeader>
-                  <SortableHeader field="MMLU">MMLU</SortableHeader>
-                  <SortableHeader field="MMLU-Pro">MMLU-Pro</SortableHeader>
-                  <SortableHeader field="DROP">DROP</SortableHeader>
-                  <SortableHeader field="HumanEval">HumanEval</SortableHeader>
-                  <SortableHeader field="inputPrice">
+                  <SortableHeader field="GPQA" tooltip="通用编程问答能力评测">
+                    GPQA
+                  </SortableHeader>
+                  <SortableHeader field="MMLU" tooltip="多任务语言理解基准测试">
+                    MMLU
+                  </SortableHeader>
+                  <SortableHeader
+                    field="MMLU-Pro"
+                    tooltip="MMLU的专业版本，更具挑战性"
+                  >
+                    MMLU-Pro
+                  </SortableHeader>
+                  <SortableHeader field="DROP" tooltip="阅读理解和问答能力评测">
+                    DROP
+                  </SortableHeader>
+                  <SortableHeader field="HumanEval" tooltip="代码生成能力评测">
+                    HumanEval
+                  </SortableHeader>
+                  <SortableHeader
+                    field="inputPrice"
+                    tooltip="每百万输入token的价格（美元）"
+                  >
                     输入价格 ($/1M)
                   </SortableHeader>
-                  <SortableHeader field="outputPrice">
+                  <SortableHeader
+                    field="outputPrice"
+                    tooltip="每百万输出token的价格（美元）"
+                  >
                     输出价格 ($/1M)
                   </SortableHeader>
-                  <SortableHeader field="license">开源</SortableHeader>
-                  <SortableHeader field="params">参数 (B)</SortableHeader>
-                  <SortableHeader field="context">上下文长度</SortableHeader>
-                  <SortableHeader field="multimodal">多模态</SortableHeader>
-                  <SortableHeader field="throughput">
+                  <SortableHeader field="license" tooltip="模型是否开源">
+                    开源
+                  </SortableHeader>
+                  <SortableHeader field="params" tooltip="模型参数量（十亿）">
+                    参数 (B)
+                  </SortableHeader>
+                  <SortableHeader
+                    field="context"
+                    tooltip="模型支持的最大上下文长度（token数）"
+                  >
+                    上下文长度
+                  </SortableHeader>
+                  <SortableHeader
+                    field="multimodal"
+                    tooltip="是否支持多模态输入（如图像）"
+                  >
+                    多模态
+                  </SortableHeader>
+                  <SortableHeader
+                    field="throughput"
+                    tooltip="模型每秒处理的token数"
+                  >
                     吞吐量 (tokens/s)
                   </SortableHeader>
-                  <SortableHeader field="latency">延迟 (s)</SortableHeader>
+                  <SortableHeader
+                    field="latency"
+                    tooltip="处理请求的平均延迟时间（秒）"
+                  >
+                    延迟 (s)
+                  </SortableHeader>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -351,6 +413,6 @@ export const ModelBenchmarkTable = () => {
 };
 
 const formatScore = (score: number | null) => {
-  if (score === null) return "N/A";
+  if (score === null) return "-";
   return `${(score * 100).toFixed(1)}%`;
 };

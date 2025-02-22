@@ -165,7 +165,10 @@ export const ModelBenchmarkTable = () => {
           <RefreshCcw className="mx-2 inline-block h-3 w-3" />每 2 天自动更新
         </p>
       </div>
-      <div className="mt-6">
+      <div className="flex justify-end text-sm text-muted-foreground/60">
+        ← 横向滑动查看所有列 →
+      </div>
+      <div className="mt-1">
         <div className="overflow-x-auto">
           <div className="min-w-max rounded-xl border p-4 shadow-md shadow-muted/50">
             <Table>

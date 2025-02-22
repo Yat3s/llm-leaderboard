@@ -3,8 +3,7 @@
 import { ModelBenchmarkTable } from "~/app/(dashboard)/benchmark/model-benchmark-table";
 import { api } from "~/trpc/react";
 import { ModelBenchmarkByCategory } from "./model-benchmark-by-category";
-import { ProviderPerformanceTable } from "./provider-peformance";
-import { ProviderPricingTable } from "./provider-pricing";
+import { ProviderApiBenchmark } from "./provider-api-benchmark";
 
 export default function BenchmarkPage() {
   const { data: benchmark, isLoading } =
@@ -22,8 +21,7 @@ export default function BenchmarkPage() {
     <div className="container mx-auto space-y-16 py-10">
       <ModelBenchmarkTable data={benchmark} />
       <ModelBenchmarkByCategory data={benchmark} />
-      <ProviderPerformanceTable />
-      <ProviderPricingTable />
+      <ProviderApiBenchmark />
     </div>
   );
 }

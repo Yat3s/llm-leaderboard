@@ -44,8 +44,8 @@ export function OrgLogo({ org, className = "" }: OrgLogoProps) {
 
   const logoPath =
     theme === "dark" && logoConfig.dark
-      ? `/logos/${logoConfig.dark}`
-      : `/logos/${logoConfig.light}`;
+      ? `/org-logos/${logoConfig.dark}`
+      : `/org-logos/${logoConfig.light}`;
 
   return (
     <div className={cn("relative h-6 w-6 flex-shrink-0", className)}>

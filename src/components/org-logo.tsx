@@ -1,5 +1,6 @@
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import { cn } from "~/lib/utils";
 
 interface OrgLogo {
   name: string;
@@ -47,7 +48,7 @@ export function OrgLogo({ org, className = "" }: OrgLogoProps) {
       : `/logos/${logoConfig.light}`;
 
   return (
-    <div className={`relative h-6 w-6 flex-shrink-0 ${className}`}>
+    <div className={cn("relative h-6 w-6 flex-shrink-0", className)}>
       <Image
         src={logoPath}
         alt={`${org} logo`}

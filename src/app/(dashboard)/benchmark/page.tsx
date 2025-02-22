@@ -1,13 +1,27 @@
 "use client";
 
-import { ModelBenchmarkTable } from "~/components/model-benchmark-table";
+import { ModelBenchmarkTable } from "~/app/(dashboard)/benchmark/model-benchmark-table";
+import { api } from "~/trpc/react";
+import { ModelBenchmarkByCategory } from "./model-benchmark-by-category";
 import { ProviderPerformanceTable } from "./provider-peformance";
 import { ProviderPricingTable } from "./provider-pricing";
 
 export default function BenchmarkPage() {
+  const { data: benchmark, isLoading } =
+    api.benchmark.fetchModelBenchmarks.useQuery();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!benchmark) {
+    return <div>Error loading benchmark data</div>;
+  }
+
   return (
-    <div className="container mx-auto space-y-12 py-10">
-      <ModelBenchmarkTable />
+    <div className="container mx-auto space-y-16 py-10">
+      <ModelBenchmarkTable data={benchmark} />
+      <ModelBenchmarkByCategory data={benchmark} />
       <ProviderPerformanceTable />
       <ProviderPricingTable />
     </div>

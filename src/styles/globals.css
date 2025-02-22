@@ -27,7 +27,11 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --chart-humaneval: 280 70% 60%;
+    --chart-gpqa: 216 70% 50%;
+    --chart-mmlu: 160 70% 45%;
+    --chart-drop: 32 70% 55%;
+    --radius: 0.5rem;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -53,12 +57,85 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
+    --chart-humaneval: 280 60% 50%;
+    --chart-gpqa: 180 60% 40%;
+    --chart-mmlu: 110 60% 35%;
+    --chart-drop: 32 60% 45%;
   }
 }
 @layer base {
   * {
     @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes title-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-title {
+  background: linear-gradient(
+    90deg,
+    #9988e5 0%,
+    rgb(224, 22, 22) 50%,
+    #7e27cb 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: title-gradient 8s ease infinite;
+}
+
+.pulsing-dot-container {
+  display: flex;
+  position: relative;
+}
+
+.pulsing-dot-wrapper {
+  position: absolute;
+  display: inline-flex;
+}
+
+.pulsing-dot-pulse {
+  position: absolute;
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px;
+  opacity: 0.75;
+  animation: ping ease-in-out infinite;
+}
+
+.pulsing-dot {
+  position: relative;
+  display: inline-flex;
+  border-radius: 9999px;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;

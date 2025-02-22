@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpDown, Check, HelpCircle, RefreshCcw, X } from "lucide-react";
+import { ArrowUpDown, Check, HelpCircle, X } from "lucide-react";
 import { useState } from "react";
+import { SectionTitle } from "~/components/section-title";
 import { Button } from "~/components/ui/button";
 import {
   Pagination,
@@ -27,9 +28,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { api } from "~/trpc/react";
 import { type ModelBenchmark } from "~/types/model";
-import { OrgLogo } from "./org-logo";
+import { OrgLogo } from "../../../components/org-logo";
 
 type SortField =
   | "throughput"
@@ -48,14 +48,18 @@ type SortField =
 
 type SortDirection = "asc" | "desc";
 
-export const ModelBenchmarkTable = () => {
+interface ModelBenchmarkTableProps {
+  data: {
+    modelBenchmarks: ModelBenchmark[];
+    updatedAt: Date;
+  };
+}
+
+export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
   const [sortField, setSortField] = useState<SortField>("GPQA");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
-
-  const { data: benchmark, isLoading } =
-    api.benchmark.fetchModelBenchmarks.useQuery();
 
   const getBenchmarkScore = (benchmarks: any[], datasetName: string) => {
     const benchmark = benchmarks.find((b) => b.datasetName === datasetName);
@@ -85,13 +89,11 @@ export const ModelBenchmarkTable = () => {
     }
   };
 
-  const sortedBenchmarks = benchmark
-    ? [...benchmark.modelBenchmarks].sort((a, b) => {
-        const aValue = getSortValue(a, sortField);
-        const bValue = getSortValue(b, sortField);
-        return sortDirection === "desc" ? bValue - aValue : aValue - bValue;
-      })
-    : [];
+  const sortedBenchmarks = [...data.modelBenchmarks].sort((a, b) => {
+    const aValue = getSortValue(a, sortField);
+    const bValue = getSortValue(b, sortField);
+    return sortDirection === "desc" ? bValue - aValue : aValue - bValue;
+  });
 
   const totalPages = Math.ceil((sortedBenchmarks?.length || 0) / itemsPerPage);
   const paginatedBenchmarks = sortedBenchmarks.slice(
@@ -149,8 +151,9 @@ export const ModelBenchmarkTable = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       transition={{
         duration: 0.5,
         type: "spring",
@@ -158,15 +161,13 @@ export const ModelBenchmarkTable = () => {
         damping: 15,
       }}
     >
-      <div className="space-y-2">
-        <h1 className="text-4xl font-bold">Benchmark</h1>
-        <p className="flex items-center text-sm text-muted-foreground">
-          数据更新于 {benchmark?.updatedAt.toLocaleString()}{" "}
-          <RefreshCcw className="mx-2 inline-block h-3 w-3" />每 2 天自动更新
-        </p>
-      </div>
+      <SectionTitle
+        title="性能指标评测(Benchmark)"
+        description="根据通用、多模态、代码生成、阅读理解等能力对模型进行评测"
+        updatedAt={data.updatedAt}
+      />
       <div className="flex justify-end text-sm text-muted-foreground/60">
-        ← 横向滑动查看所有列 →
+        ← 横向滑动查看所有指标 →
       </div>
       <div className="mt-1">
         <div className="overflow-x-auto">
@@ -178,9 +179,9 @@ export const ModelBenchmarkTable = () => {
                   <SortableHeader field="GPQA" tooltip="通用编程问答能力评测">
                     GPQA
                   </SortableHeader>
-                  <SortableHeader field="MMLU" tooltip="多任务语言理解基准测试">
+                  {/* <SortableHeader field="MMLU" tooltip="多任务语言理解基准测试">
                     MMLU
-                  </SortableHeader>
+                  </SortableHeader> */}
                   <SortableHeader
                     field="MMLU-Pro"
                     tooltip="MMLU的专业版本，更具挑战性"
@@ -238,9 +239,9 @@ export const ModelBenchmarkTable = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {isLoading ? (
+                {data.modelBenchmarks.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={14} className="text-center">
+                    <TableCell colSpan={13} className="text-center">
                       加载中...
                     </TableCell>
                   </TableRow>
@@ -285,11 +286,11 @@ export const ModelBenchmarkTable = () => {
                           getBenchmarkScore(model.benchmarks, "GPQA"),
                         )}
                       </TableCell>
-                      <TableCell className="text-center">
+                      {/* <TableCell className="text-center">
                         {formatScore(
                           getBenchmarkScore(model.benchmarks, "MMLU"),
                         )}
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell className="text-center">
                         {formatScore(
                           getBenchmarkScore(model.benchmarks, "MMLU-Pro"),
@@ -413,7 +414,7 @@ export const ModelBenchmarkTable = () => {
       </div>
     </motion.div>
   );
-};
+}
 
 const formatScore = (score: number | null) => {
   if (score === null) return "-";

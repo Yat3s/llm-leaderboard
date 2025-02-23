@@ -19,7 +19,7 @@ WORKDIR /app
 COPY --from=base /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
-# RUN npx prisma generate
+RUN npx prisma generate
 RUN pnpm run build
 
 # Production image, copy all the files and run the app

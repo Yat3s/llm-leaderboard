@@ -21,7 +21,7 @@ export const calculateAverageBenchmarks = (
 ): BenchmarkSummary[] => {
     // Group results by providerId
     const resultsByProvider = benchmarkResults.reduce((map, result) => {
-        const results = map.get(result.providerId) || [];
+        const results = map.get(result.providerId) ?? [];
         results.push(result);
         map.set(result.providerId, results);
         return map;

@@ -28,7 +28,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { type ModelBenchmark } from "~/types/model";
+import { BenchmarkScore, type ModelBenchmark } from "~/types/model";
 import { OrgLogo } from "../../../components/org-logo";
 
 type SortField =
@@ -61,7 +61,10 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
-  const getBenchmarkScore = (benchmarks: any[], datasetName: string) => {
+  const getBenchmarkScore = (
+    benchmarks: BenchmarkScore[],
+    datasetName: string,
+  ) => {
     const benchmark = benchmarks.find((b) => b.datasetName === datasetName);
     return benchmark ? benchmark.score : null;
   };
@@ -286,11 +289,6 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
                           getBenchmarkScore(model.benchmarks, "GPQA"),
                         )}
                       </TableCell>
-                      {/* <TableCell className="text-center">
-                        {formatScore(
-                          getBenchmarkScore(model.benchmarks, "MMLU"),
-                        )}
-                      </TableCell> */}
                       <TableCell className="text-center">
                         {formatScore(
                           getBenchmarkScore(model.benchmarks, "MMLU-Pro"),

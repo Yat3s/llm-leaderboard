@@ -30,7 +30,7 @@ export async function getEnvRegion(): Promise<string> {
         const data = await response.json();
 
         if (!data.error && data.region) {
-            return data.region.toLowerCase();
+            return data.region.toLowerCase() as string;
         }
     } catch (error) {
         console.warn("Failed to lookup IP geolocation:", error);

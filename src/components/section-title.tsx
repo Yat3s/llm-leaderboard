@@ -14,7 +14,7 @@ export function SectionTitle({
   return (
     <div className="space-y-2 px-4 md:space-y-4 md:px-0">
       <h1 className="text-2xl font-bold md:text-4xl">{title}</h1>
-      {(description || updatedAt) && (
+      {(description ?? updatedAt) && (
         <div className="flex flex-col gap-1 text-xs text-muted-foreground md:flex-row md:items-center md:gap-0 md:text-sm">
           <p>{description}</p>
           {updatedAt && (

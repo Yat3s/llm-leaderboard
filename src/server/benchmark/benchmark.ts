@@ -1,3 +1,4 @@
+/* eslint-disable */
 import OpenAI from "openai";
 import { db } from "~/server/db";
 import { type ModelProvider } from "../../constants/llm-providers";

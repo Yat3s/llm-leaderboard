@@ -20,7 +20,7 @@ import {
 } from "~/components/ui/tooltip";
 import { getModelProviders } from "~/constants/llm-providers";
 import { api } from "~/trpc/react";
-import { calculateAverageBenchmarks } from "./utils";
+import { calculateAverageBenchmarks } from "../../(dashboard)/benchmark/utils";
 const MODEL = "deepseek-r1";
 
 // 添加排序类型定义

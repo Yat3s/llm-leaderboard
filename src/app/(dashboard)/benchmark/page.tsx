@@ -1,9 +1,9 @@
 "use client";
 
-import { ModelBenchmarkTable } from "~/app/(dashboard)/benchmark/model-benchmark-table";
+import { ModelBenchmarkTable } from "~/app/_components/benchmark/model-benchmark-table";
 import { api } from "~/trpc/react";
-import { ModelBenchmarkByCategory } from "./model-benchmark-by-category";
-import { ProviderApiBenchmark } from "./provider-api-benchmark";
+import { ModelBenchmarkByCategory } from "../../_components/benchmark/model-benchmark-by-category";
+import { ProviderApiBenchmark } from "../../_components/benchmark/provider-api-benchmark";
 
 export default function BenchmarkPage() {
   const { data: benchmark, isLoading } =

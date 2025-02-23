@@ -1,0 +1,48 @@
+name: Trigger auto deployment for llm-leaderboard
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ develop ]
+    paths:
+    - '**'
+    - '.github/workflows/llm-leaderboard-AutoDeployTrigger-1c8f953b-7667-46b6-9715-75fc7609fac8.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.LLMLEADERBOARD_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.LLMLEADERBOARD_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.LLMLEADERBOARD_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          registryUrl: composal.azurecr.io
+          registryUsername: ${{ secrets.LLMLEADERBOARD_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.LLMLEADERBOARD_REGISTRY_PASSWORD }}
+          containerAppName: llm-leaderboard
+          resourceGroup: geek4fun
+          imageToBuild: composal.azurecr.io/llm-leaderboard:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+

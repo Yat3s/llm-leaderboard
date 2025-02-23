@@ -1,8 +1,6 @@
 /* eslint-disable */
 import OpenAI from "openai";
-import { db } from "~/server/db";
 import { type ModelProvider } from "../../constants/llm-providers";
-import { getEnvIp, getEnvRegion } from "../utils";
 import { calculateTimes, logMetrics, StreamingMetrics } from "./metric";
 import { countTokenLength } from "./tokenizer";
 
@@ -125,25 +123,4 @@ export async function runBenchmarks(providers: ModelProvider[], prompt: string) 
     }
 
     return results;
-}
-
-export async function saveBenchmarkResults(results: BenchmarkResult[]) {
-    const envIp = getEnvIp();
-    const envRegion = await getEnvRegion();
-    await db.providerBenchmarkResult.createMany({
-        data: results.map((result) => ({
-            providerId: result.providerId,
-            model: result.model,
-            testPrompt: result.testPrompt,
-            firstTokenTime: result.firstTokenTime,
-            reasoningTokens: result.reasoningTokens,
-            reasoningTime: result.reasoningTime,
-            contentTokens: result.contentTokens,
-            contentTime: result.contentTime,
-            overallTokens: result.overallTokens,
-            totalTime: result.totalTime,
-            envIp: envIp,
-            envRegion: envRegion,
-        })),
-    });
 }

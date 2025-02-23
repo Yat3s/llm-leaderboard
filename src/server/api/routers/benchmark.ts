@@ -1,79 +1,50 @@
-// src/server/api/routers/benchmark.ts
-
+/* eslint-disable */
+import { ProviderBenchmarkResult } from "@prisma/client";
+import fs from "fs/promises";
+import path from "path";
 import { z } from "zod";
-import { getModelProviders } from "~/constants/llm-providers";
-import { runBenchmarks, saveBenchmarkResults } from "~/server/benchmark/benchmark";
-import { TEST_CASES } from "~/server/benchmark/test-cases";
 import { type ModelBenchmark } from "~/types/model";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
-const CACHE_EXPIRATION_TIME = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds
+const PROVIDER_BENCHMARKS_PATH = path.join(process.cwd(), "src/data/provider-benchmarks.json");
+const MODEL_BENCHMARKS_PATH = path.join(process.cwd(), "src/data/model-benchmarks.json");
 
 export const benchmarkRouter = createTRPCRouter({
-    fetchRecentByProviders: publicProcedure
+    fetchProviderBenchmarks: publicProcedure
         .input(
             z.object({
                 providerIds: z.array(z.string()),
                 model: z.string(),
             })
         )
-        .query(async ({ ctx, input }) => {
-            const results = await ctx.db.providerBenchmarkResult.findMany({
-                where: {
-                    providerId: {
-                        in: input.providerIds
-                    },
-                    model: input.model,
-                },
-                orderBy: {
-                    createdAt: "desc",
-                },
-                take: input.providerIds.length * 2,
-            });
-            return results;
-        }),
+        .query(async ({ input }): Promise<ProviderBenchmarkResult[]> => {
+            const content = await fs.readFile(PROVIDER_BENCHMARKS_PATH, 'utf-8');
+            const rawResults = JSON.parse(content);
 
-    testRunBenchmark: publicProcedure
-        .mutation(async ({ }) => {
-            for (const testCase of TEST_CASES) {
-                console.log(`\nExecuting test case: ${testCase.name}`);
-                console.log("================================");
+            // Transform the raw results to ensure createdAt is a Date object
+            const results = rawResults.map((result: any) => ({
+                ...result,
+                createdAt: new Date(result.createdAt)
+            }));
 
-                const results = await runBenchmarks(getModelProviders(), testCase.prompt);
-                if (results) {
-                    console.log(`Saving results for ${testCase.name}`);
-                    await saveBenchmarkResults(results);
-                }
-            }
+            return results
+                .filter((result: ProviderBenchmarkResult) =>
+                    input.providerIds.includes(result.providerId) &&
+                    result.model === input.model
+                )
+                .sort((a: ProviderBenchmarkResult, b: ProviderBenchmarkResult) =>
+                    b.createdAt.getTime() - a.createdAt.getTime()
+                )
+                .slice(0, input.providerIds.length * 2);
         }),
 
     fetchModelBenchmarks: publicProcedure
-        .query(async ({ ctx }) => {
+        .query(async () => {
             try {
-                // Get the latest cache entry
-                const latestCache = await ctx.db.modelBenchmarkData.findFirst({
-                    orderBy: {
-                        createdAt: 'desc'
-                    }
-                });
+                const content = await fs.readFile(MODEL_BENCHMARKS_PATH, 'utf-8');
+                const rawData = JSON.parse(content);
 
-                // Check if cache exists and is less than 3 days old
-                if (latestCache && latestCache.createdAt > new Date(Date.now() - CACHE_EXPIRATION_TIME)) {
-                    return {
-                        modelBenchmarks: JSON.parse(latestCache.cacheJson) as ModelBenchmark[],
-                        updatedAt: latestCache.createdAt
-                    };
-                }
-
-                // Fetch fresh data if cache is expired or doesn't exist
-                // Credit to https://llm-stats.com
-                const response = await fetch('https://llm-stats.com/api/models?metrics=true&justCanonicals=true');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-
-                const modelBenchmarks = data.map((model: any) => ({
+                const modelBenchmarks = rawData.modelBenchmarks.map((model: any) => ({
                     modelId: model.model_id,
                     name: model.name,
                     organization: model.organization,
@@ -98,21 +69,12 @@ export const benchmarkRouter = createTRPCRouter({
                         sourceLink: benchmark.source_link,
                     })),
                 })) as ModelBenchmark[];
-
-                // Save new cache
-                await ctx.db.modelBenchmarkData.create({
-                    data: {
-                        cacheJson: JSON.stringify(modelBenchmarks)
-                    }
-                });
-
                 return {
                     modelBenchmarks,
-                    updatedAt: latestCache?.createdAt ?? new Date(),
+                    updatedAt: rawData.updatedAt,
                 };
             } catch (error) {
-                console.error('Error fetching model benchmarks:', error);
-                throw error;
+                console.error('Error reading model benchmarks file:', error);
             }
         }),
 });

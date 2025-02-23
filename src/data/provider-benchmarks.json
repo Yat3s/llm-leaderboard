@@ -1,0 +1,28 @@
+[
+  {
+    "model": "deepseek-r1",
+    "providerId": "baidu",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1426,
+    "reasoningTokens": 65,
+    "reasoningTime": 10924,
+    "contentTokens": 10,
+    "contentTime": 466,
+    "overallTokens": 75,
+    "totalTime": 12817,
+    "createdAt": "2025-02-23T09:37:33.417Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "baidu",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1525,
+    "reasoningTokens": 65,
+    "reasoningTime": 11113,
+    "contentTokens": 10,
+    "contentTime": 471,
+    "overallTokens": 75,
+    "totalTime": 13111,
+    "createdAt": "2025-02-23T09:38:05.790Z"
+  }
+]

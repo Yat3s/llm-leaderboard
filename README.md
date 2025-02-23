@@ -45,13 +45,7 @@ Required environment variables:
 - `VOLCENGINE_API_KEY`
 - `TENCENT_API_KEY`
 
-4. Initialize the database:
-
-```bash
-pnpm db:push
-```
-
-5. Run the development server:
+4. Run the development server:
 
 ```bash
 pnpm dev

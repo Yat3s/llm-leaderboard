@@ -14,7 +14,7 @@ const MODEL = "deepseek-r1";
 export const ProviderApiBenchmark = () => {
   const providers = getModelProviders();
   const { data: rawBenchmarkResults, isLoading } =
-    api.benchmark.fetchRecentByProviders.useQuery({
+    api.benchmark.fetchProviderBenchmarks.useQuery({
       providerIds: providers.map((p) => p.id),
       model: MODEL,
     });

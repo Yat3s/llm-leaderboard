@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import fs from "fs/promises";
 import { join } from "path";
 import { fileURLToPath } from "url";
 
@@ -10,6 +11,9 @@ dotenv.config({ path: join(rootDir, ".env") });
 import { runBenchmarks } from "~/server/benchmark/benchmark";
 import { TEST_CASES } from "~/server/benchmark/test-cases";
 import { getModelProviders } from "../constants/llm-providers";
+
+const PROVIDER_BENCHMARKS_PATH = join(rootDir, "src/data/provider-benchmarks.json");
+
 async function main() {
     // Verify required environment variables
     const requiredEnvVars = [
@@ -37,6 +41,7 @@ async function main() {
     console.log("Starting LLM Benchmark test...\n");
 
     const modelProviders = getModelProviders();
+    const allResults = [];
 
     // Run each test case
     for (const testCase of TEST_CASES) {
@@ -54,7 +59,33 @@ async function main() {
                 console.log(`- Overall speed: ${(result.overallTokens / result.totalTime).toFixed(2)} tokens/s`);
             }
         });
+
+        // Add results to allResults array with createdAt timestamp
+        allResults.push(...results.map(result => ({
+            ...result,
+            createdAt: new Date().toISOString()
+        })));
     }
+
+    // Read existing results
+    let existingResults = [];
+    try {
+        const content = await fs.readFile(PROVIDER_BENCHMARKS_PATH, 'utf-8');
+        existingResults = JSON.parse(content);
+    } catch (error) {
+        console.log("No existing results found or error reading file");
+    }
+
+    // Combine existing and new results
+    const combinedResults = [...existingResults, ...allResults];
+
+    // Save to JSON file
+    await fs.writeFile(
+        PROVIDER_BENCHMARKS_PATH,
+        JSON.stringify(combinedResults, null, 2)
+    );
+
+    console.log(`\nResults saved to ${PROVIDER_BENCHMARKS_PATH}`);
 }
 
 // Run tests

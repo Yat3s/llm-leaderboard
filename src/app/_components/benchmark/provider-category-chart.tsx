@@ -31,7 +31,7 @@ interface Props {
 export function ProviderCategoryChart({ category }: Props) {
   const providers = getModelProviders();
   const { data: rawBenchmarkResults, isLoading } =
-    api.benchmark.fetchRecentByProviders.useQuery({
+    api.benchmark.fetchProviderBenchmarks.useQuery({
       providerIds: providers.map((p) => p.id),
       model: MODEL,
     });

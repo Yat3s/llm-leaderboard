@@ -67,22 +67,22 @@ export function BenchmarkCategoryChart({
             key={item.name}
             className="group flex items-center justify-start gap-4"
           >
-            <div className="flex w-[140px] items-center gap-2">
+            <div className="flex w-[120px] items-center gap-2 md:w-[140px]">
               <OrgLogo
                 org={item.organization.toLowerCase()}
-                className="h-4 w-4"
+                className="h-3 w-3 md:h-4 md:w-4"
               />
               <span
                 className={cn(
-                  "truncate text-xs text-muted-foreground",
+                  "truncate text-[11px] text-muted-foreground md:text-xs",
                   chartData.indexOf(item) === 0
                     ? "font-bold text-foreground"
                     : "",
                 )}
                 title={item.name}
               >
-                {item.name.length > 18
-                  ? `${item.name.slice(0, 18)}...`
+                {item.name.length > 16
+                  ? `${item.name.slice(0, 16)}...`
                   : item.name}
               </span>
             </div>

@@ -12,18 +12,20 @@ export function SectionTitle({
   updatedAt,
 }: SectionTitleProps) {
   return (
-    <div className="space-y-4">
-      <h1 className="text-4xl font-bold">{title}</h1>
+    <div className="space-y-2 px-4 md:space-y-4 md:px-0">
+      <h1 className="text-2xl font-bold md:text-4xl">{title}</h1>
       {(description || updatedAt) && (
-        <p className="flex items-center text-sm text-muted-foreground">
-          {description}
+        <div className="flex flex-col gap-1 text-xs text-muted-foreground md:flex-row md:items-center md:gap-0 md:text-sm">
+          <p>{description}</p>
           {updatedAt && (
-            <>
-              <PulsingDot className="mx-2" />
-              自动更新于 {updatedAt.toLocaleString()}
-            </>
+            <div className="flex items-center md:ml-2">
+              <PulsingDot className="mt-0.5 md:mt-0" />
+              <span className="ml-2">
+                自动更新于 {updatedAt.toLocaleString()}
+              </span>
+            </div>
           )}
-        </p>
+        </div>
       )}
     </div>
   );

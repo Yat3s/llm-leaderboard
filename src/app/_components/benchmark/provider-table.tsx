@@ -19,9 +19,6 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 import { getModelProviders } from "~/constants/llm-providers";
-import { api } from "~/trpc/react";
-import { calculateAverageBenchmarks } from "../../(dashboard)/benchmark/utils";
-const MODEL = "deepseek-r1";
 
 // 添加排序类型定义
 type SortField =
@@ -34,19 +31,20 @@ type SortField =
 
 type SortDirection = "asc" | "desc";
 
-export const ProviderTable = () => {
+export const ProviderTable = ({
+  benchmarkSummaries,
+}: {
+  benchmarkSummaries: {
+    providerId: string;
+    firstTokenTime: number;
+    reasoningTokensPerSecond: number;
+    contentTokensPerSecond: number;
+    tokensPerSecond: number;
+  }[];
+}) => {
   const providers = getModelProviders();
-  const { data: rawBenchmarkResults, isLoading } =
-    api.benchmark.fetchRecentByProviders.useQuery({
-      providerIds: providers.map((p) => p.id),
-      model: MODEL,
-    });
 
-  const benchmarkSummaries = rawBenchmarkResults
-    ? calculateAverageBenchmarks(rawBenchmarkResults)
-    : [];
-
-  // 添加排序状态
+  // Remove the API call and isLoading state since we'll get data from props
   const [sortField, setSortField] = useState<SortField>("tokensPerSecond");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
@@ -139,24 +137,8 @@ export const ProviderTable = () => {
       </div>
     </TableHead>
   );
-
-  const lastUpdated = rawBenchmarkResults
-    ?.map((summary) => summary.createdAt)
-    .sort((a, b) => (b?.getTime() ?? 0) - (a?.getTime() ?? 0))[0];
-
-  const runTestBenchmark = api.benchmark.testRunBenchmark.useMutation();
-
   return (
     <>
-      {/* <button
-        onClick={() => {
-          runTestBenchmark.mutate();
-        }}
-        className="mb-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-      >
-        运行测试
-      </button> */}
-
       <div className="mt-2 overflow-x-auto">
         <div className="min-w-[1200px] rounded-xl">
           <Table>
@@ -205,22 +187,6 @@ export const ProviderTable = () => {
             </TableHeader>
             <TableBody>
               {sortedProviders.map((provider, index) => {
-                if (isLoading) {
-                  return (
-                    <TableRow key={provider.id}>
-                      <TableCell className="flex items-center gap-2">
-                        <ProviderLogo
-                          provider={provider.id}
-                          width={24}
-                          height={24}
-                        />
-                        {provider.name}
-                      </TableCell>
-                      <TableCell colSpan={8}>Loading...</TableCell>
-                    </TableRow>
-                  );
-                }
-
                 const summary = benchmarkSummaries.find(
                   (s) => s.providerId === provider.id,
                 );
@@ -290,6 +256,9 @@ export const ProviderTable = () => {
             </TableBody>
           </Table>
         </div>
+      </div>
+      <div className="mb-2 text-center text-xs text-muted-foreground md:hidden">
+        ← 左右滑动查看完整数据 →
       </div>
     </>
   );

@@ -169,9 +169,9 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
       <div className="flex justify-end text-sm text-muted-foreground/60">
         ← 横向滑动查看所有指标 →
       </div>
-      <div className="mt-1">
+      <div className="">
         <div className="overflow-x-auto">
-          <div className="min-w-max rounded-xl border p-4 shadow-md shadow-muted/50">
+          <div className="min-w-max rounded-none border-x-0 p-2 shadow-md shadow-muted/50 md:w-full md:rounded-xl md:border-x md:p-4">
             <Table>
               <TableHeader className="bg-background">
                 <TableRow>
@@ -260,7 +260,7 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
                           : ""
                       }
                     >
-                      <TableCell className="sticky left-0 bg-inherit font-medium">
+                      <TableCell className="sticky left-0 bg-inherit px-4 font-medium md:px-2">
                         <div className="flex items-center gap-4">
                           <div className="relative h-6 w-6 flex-shrink-0">
                             <OrgLogo org={model.organization} />

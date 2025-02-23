@@ -9,9 +9,9 @@ interface PulsingDotProps {
 export const PulsingDot = ({
   className = "",
   dotColor = "bg-sky-500",
-  pulseColor = "bg-sky-400",
+  pulseColor = "bg-sky-700",
   size = "h-2 w-2",
-  duration = "2s",
+  duration = "1.5s",
 }: PulsingDotProps) => {
   return (
     <span className={`pulsing-dot-container ${size} ${className}`}>

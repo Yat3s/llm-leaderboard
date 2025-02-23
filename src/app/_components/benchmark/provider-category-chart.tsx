@@ -9,7 +9,7 @@ import {
 } from "~/components/ui/chart";
 import { getModelProviders } from "~/constants/llm-providers";
 import { api } from "~/trpc/react";
-import { calculateAverageBenchmarks } from "../../(dashboard)/benchmark/utils";
+import { calculateAverageBenchmarks } from "./utils";
 
 const MODEL = "deepseek-r1";
 

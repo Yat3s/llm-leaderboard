@@ -91,24 +91,6 @@ export function getModelProviders(): ModelProvider[] {
                 docUrl: "https://cloud.siliconflow.cn/account/ak"
             }
         },
-        // {
-        //     id: "siliconflow-pro",
-        //     name: "硅基流动 Pro",
-        //     logo: "https://framerusercontent.com/images/4li2PjWxZJmoGkzXRMJWU1rJmI.svg",
-        //     platform: {
-        //         apiKey: process.env.SILICONFLOW_API_KEY,
-        //         baseUrl: "https://api.siliconflow.cn/v1",
-        //         endpoint: "Pro/deepseek-ai/DeepSeek-R1",
-        //         model: "deepseek-r1",
-        //         developerPortal: "https://cloud.siliconflow.cn/account/ak"
-        //     },
-        // price: {
-        //     input: 4,
-        //     output: 16,
-        //     trialTokens: 1000000,
-        //     docUrl: "https://cloud.siliconflow.cn/account/ak"
-        // }
-        // },
         {
             id: "aliyun",
             name: "阿里云百炼",

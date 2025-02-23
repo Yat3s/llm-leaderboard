@@ -40,7 +40,6 @@ export function ProviderCategoryChart({ category }: Props) {
     ? calculateAverageBenchmarks(rawBenchmarkResults)
     : [];
 
-  // 准备图表数据
   const chartData = providers
     .map((provider) => {
       const summary = benchmarkSummaries.find(
@@ -57,11 +56,10 @@ export function ProviderCategoryChart({ category }: Props) {
       };
     })
     .sort((a, b) => {
-      // 根据不同类别进行排序
       if (category === "speed") {
         return b.speed - a.speed;
       }
-      return a.price - b.price; // 价格从低到高
+      return a.price - b.price;
     });
 
   const chartTitle = category === "speed" ? "API 输出速度" : "API 输出价格";

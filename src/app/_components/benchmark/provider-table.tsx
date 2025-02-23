@@ -20,7 +20,6 @@ import {
 } from "~/components/ui/tooltip";
 import { getModelProviders } from "~/constants/llm-providers";
 
-// 添加排序类型定义
 type SortField =
   | "firstTokenTime"
   | "reasoningTokensPerSecond"
@@ -48,7 +47,6 @@ export const ProviderTable = ({
   const [sortField, setSortField] = useState<SortField>("tokensPerSecond");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
-  // 排序处理函数
   const handleSort = (field: SortField) => {
     if (sortField === field) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -58,7 +56,6 @@ export const ProviderTable = ({
     }
   };
 
-  // 排序提供商列表
   const sortedProviders = [...providers].sort((a, b) => {
     const summaryA = benchmarkSummaries.find((s) => s.providerId === a.id);
     const summaryB = benchmarkSummaries.find((s) => s.providerId === b.id);

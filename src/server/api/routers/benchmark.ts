@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { ProviderBenchmarkResult } from "@prisma/client";
 import fs from "fs/promises";
 import path from "path";
 import { z } from "zod";
 import { type ModelBenchmark } from "~/types/model";
+import { ProviderBenchmarkResult } from "~/types/provider";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 const PROVIDER_BENCHMARKS_PATH = path.join(process.cwd(), "src/data/provider-benchmarks.json");

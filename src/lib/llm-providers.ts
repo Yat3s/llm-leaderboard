@@ -51,28 +51,28 @@ export function getModelProviders(): ModelProvider[] {
             price: {
                 input: 0,
                 output: 0,
-                trial: "目前免费调用",
+                trial: "25,000,000 tokens",
                 docUrl: "https://huiju.ctyun.cn/modelSquare/?regionId=200000001852"
             }
         },
-        // {
-        //     id: "deepseek-official",
-        //     name: "DeepSeek 官方",
-        //     logo: "https://custom.typingmind.com/assets/models/deepseek.png",
-        //     platform: {
-        //         apiKey: process.env.DEEPSEEK_API_KEY,
-        //         baseUrl: "https://api.deepseek.com",
-        //         endpoint: "deepseek-reasoner",
-        //         model: "deepseek-r1",
-        //         developerPortal: "https://platform.deepseek.com/api_keys"
-        //     },
-        //     price: {
-        //         input: 3.6,
-        //         output: 16,
-        //         trial: "0",
-        //         docUrl: "https://platform.deepseek.com/api_keys"
-        //     }
-        // },
+        {
+            id: "deepseek-official",
+            name: "DeepSeek 官方",
+            logo: "https://custom.typingmind.com/assets/models/deepseek.png",
+            platform: {
+                apiKey: process.env.DEEPSEEK_API_KEY,
+                baseUrl: "https://api.deepseek.com",
+                endpoint: "deepseek-reasoner",
+                model: "deepseek-r1",
+                developerPortal: "https://platform.deepseek.com/api_keys"
+            },
+            price: {
+                input: 3.6,
+                output: 16,
+                trial: "0",
+                docUrl: "https://platform.deepseek.com/api_keys"
+            }
+        },
         {
             id: "siliconflow",
             name: "硅基流动",

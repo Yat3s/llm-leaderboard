@@ -102,5 +102,18 @@
     "overallTokens": 78,
     "totalTime": 15305,
     "createdAt": "2025-02-24T04:52:07.367Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "deepseek-official",
+    "testPrompt": "Hello",
+    "firstTokenTime": 2422,
+    "reasoningTokens": 85,
+    "reasoningTime": 19769,
+    "contentTokens": 12,
+    "contentTime": 4225,
+    "overallTokens": 97,
+    "totalTime": 26416,
+    "createdAt": "2025-02-24T06:52:12.812Z"
   }
 ]

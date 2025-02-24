@@ -71,7 +71,7 @@ export const benchmarkRouter = createTRPCRouter({
                 })) as ModelBenchmark[];
                 return {
                     modelBenchmarks,
-                    updatedAt: rawData.updatedAt,
+                    updatedAt: new Date(rawData.updatedAt),
                 };
             } catch (error) {
                 console.error('Error reading model benchmarks file:', error);

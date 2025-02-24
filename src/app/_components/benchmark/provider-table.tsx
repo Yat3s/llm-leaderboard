@@ -18,7 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { getModelProviders } from "~/constants/llm-providers";
+import { getModelProviders } from "~/data/llm-providers";
 
 type SortField =
   | "firstTokenTime"

@@ -10,7 +10,7 @@ dotenv.config({ path: join(rootDir, ".env") });
 
 import { runBenchmarks } from "~/server/benchmark/benchmark";
 import { TEST_CASES } from "~/server/benchmark/test-cases";
-import { getModelProviders } from "../constants/llm-providers";
+import { getModelProviders } from "../data/llm-providers";
 
 const PROVIDER_BENCHMARKS_PATH = join(rootDir, "src/data/provider-benchmarks.json");
 
@@ -18,10 +18,10 @@ async function main() {
     // Verify required environment variables
     const requiredEnvVars = [
         "DEEPSEEK_API_KEY",
-        "ALIBABA_API_KEY",
+        "ALIYUN_API_KEY",
         "SILICONFLOW_API_KEY",
         "VOLCENGINE_API_KEY",
-        "VOLCENGINE_MODEL",
+        "VOLCENGINE_API_ENDPOINT",
         "TENCENT_API_KEY",
     ];
 

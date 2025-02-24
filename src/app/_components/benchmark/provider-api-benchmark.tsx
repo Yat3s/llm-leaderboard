@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { SectionTitle } from "~/components/section-title";
 import { Card } from "~/components/ui/card";
-import { getModelProviders } from "~/constants/llm-providers";
+import { getModelProviders } from "~/data/llm-providers";
 import { api } from "~/trpc/react";
 import { ProviderCategoryChart } from "./provider-category-chart";
 import { ProviderTable } from "./provider-table";

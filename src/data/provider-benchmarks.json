@@ -24,5 +24,83 @@
     "overallTokens": 75,
     "totalTime": 13111,
     "createdAt": "2025-02-23T09:38:05.790Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "baidu",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1695,
+    "reasoningTokens": 54,
+    "reasoningTime": 9753,
+    "contentTokens": 10,
+    "contentTime": 525,
+    "overallTokens": 64,
+    "totalTime": 11975,
+    "createdAt": "2025-02-24T04:52:07.363Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "ctyun",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1464,
+    "reasoningTokens": 0,
+    "reasoningTime": 0,
+    "contentTokens": 95,
+    "contentTime": 16620,
+    "overallTokens": 95,
+    "totalTime": 18087,
+    "createdAt": "2025-02-24T04:52:07.367Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "siliconflow",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1405,
+    "reasoningTokens": 76,
+    "reasoningTime": 7989,
+    "contentTokens": 27,
+    "contentTime": 2507,
+    "overallTokens": 103,
+    "totalTime": 11903,
+    "createdAt": "2025-02-24T04:52:07.367Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "aliyun",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1645,
+    "reasoningTokens": 83,
+    "reasoningTime": 15289,
+    "contentTokens": 10,
+    "contentTime": 1941,
+    "overallTokens": 93,
+    "totalTime": 18876,
+    "createdAt": "2025-02-24T04:52:07.367Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "volcengine",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1154,
+    "reasoningTokens": 85,
+    "reasoningTime": 15354,
+    "contentTokens": 11,
+    "contentTime": 2091,
+    "overallTokens": 96,
+    "totalTime": 18601,
+    "createdAt": "2025-02-24T04:52:07.367Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "tencentcloud",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1312,
+    "reasoningTokens": 66,
+    "reasoningTime": 11769,
+    "contentTokens": 12,
+    "contentTime": 2222,
+    "overallTokens": 78,
+    "totalTime": 15305,
+    "createdAt": "2025-02-24T04:52:07.367Z"
   }
 ]

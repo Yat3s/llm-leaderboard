@@ -7,7 +7,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "~/components/ui/chart";
-import { getModelProviders } from "~/data/llm-providers";
+import { getModelProviders } from "~/lib/llm-providers";
 import { api } from "~/trpc/react";
 import { calculateAverageBenchmarks } from "./utils";
 

@@ -10,7 +10,7 @@ dotenv.config({ path: join(rootDir, ".env") });
 
 import { runBenchmarks } from "~/server/benchmark/benchmark";
 import { TEST_CASES } from "~/server/benchmark/test-cases";
-import { getModelProviders } from "../data/llm-providers";
+import { getModelProviders } from "../lib/llm-providers";
 
 const PROVIDER_BENCHMARKS_PATH = join(rootDir, "src/data/provider-benchmarks.json");
 

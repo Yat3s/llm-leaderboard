@@ -1,6 +1,6 @@
 /* eslint-disable */
 import OpenAI from "openai";
-import { type ModelProvider } from "../../data/llm-providers";
+import { type ModelProvider } from "~/lib/llm-providers";
 import { calculateTimes, logMetrics, StreamingMetrics } from "./metric";
 import { countTokenLength } from "./tokenizer";
 

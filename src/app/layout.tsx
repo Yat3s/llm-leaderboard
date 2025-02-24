@@ -22,7 +22,7 @@ export default function RootLayout({
       className={`${GeistSans.variable}`}
     >
       <body>
-        <ThemeProvider attribute="class" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light">
           <TRPCReactProvider>
             <main className="flex min-h-screen flex-col items-center">
               {children}

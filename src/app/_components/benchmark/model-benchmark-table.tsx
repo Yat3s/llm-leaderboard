@@ -5,6 +5,7 @@ import { ArrowUpDown, Check, HelpCircle, X } from "lucide-react";
 import { useState } from "react";
 import { SectionTitle } from "~/components/section-title";
 import { Button } from "~/components/ui/button";
+import { Card, CardContent } from "~/components/ui/card";
 import {
   Pagination,
   PaginationContent,
@@ -172,183 +173,174 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
       <div className="flex justify-end text-sm text-muted-foreground/60">
         ← 横向滑动查看所有指标 →
       </div>
-      <div className="">
-        <div className="overflow-x-auto">
-          <div className="min-w-max rounded-none border-x-0 p-2 shadow-md shadow-muted/50 md:w-full md:rounded-xl md:border-x md:p-4">
-            <Table>
-              <TableHeader className="bg-background">
+      <Card className="mt-1 overflow-x-auto rounded-none p-4 md:mx-0 md:rounded-lg">
+        <CardContent className="p-2 md:rounded-xl md:p-4">
+          <Table>
+            <TableHeader className="bg-background">
+              <TableRow>
+                <TableHead className="bg-background">模型</TableHead>
+                <SortableHeader field="GPQA" tooltip="通用编程问答能力评测">
+                  GPQA
+                </SortableHeader>
+                <SortableHeader
+                  field="MMLU-Pro"
+                  tooltip="MMLU的专业版本，更具挑战性"
+                >
+                  MMLU-Pro
+                </SortableHeader>
+                <SortableHeader field="DROP" tooltip="阅读理解和问答能力评测">
+                  DROP
+                </SortableHeader>
+                <SortableHeader field="HumanEval" tooltip="代码生成能力评测">
+                  HumanEval
+                </SortableHeader>
+                <SortableHeader
+                  field="inputPrice"
+                  tooltip="每百万输入token的价格（美元）"
+                >
+                  输入价格 ($/1M)
+                </SortableHeader>
+                <SortableHeader
+                  field="outputPrice"
+                  tooltip="每百万输出token的价格（美元）"
+                >
+                  输出价格 ($/1M)
+                </SortableHeader>
+                <SortableHeader field="license" tooltip="模型是否开源">
+                  开源
+                </SortableHeader>
+                <SortableHeader field="params" tooltip="模型参数量（十亿）">
+                  参数 (B)
+                </SortableHeader>
+                <SortableHeader
+                  field="context"
+                  tooltip="模型支持的最大上下文长度（token数）"
+                >
+                  上下文长度
+                </SortableHeader>
+                <SortableHeader
+                  field="multimodal"
+                  tooltip="是否支持多模态输入（如图像）"
+                >
+                  多模态
+                </SortableHeader>
+                <SortableHeader
+                  field="throughput"
+                  tooltip="模型每秒处理的token数"
+                >
+                  吞吐量 (tokens/s)
+                </SortableHeader>
+                <SortableHeader
+                  field="latency"
+                  tooltip="处理请求的平均延迟时间（秒）"
+                >
+                  延迟 (s)
+                </SortableHeader>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.modelBenchmarks.length === 0 ? (
                 <TableRow>
-                  <TableHead className="bg-background">模型</TableHead>
-                  <SortableHeader field="GPQA" tooltip="通用编程问答能力评测">
-                    GPQA
-                  </SortableHeader>
-                  {/* <SortableHeader field="MMLU" tooltip="多任务语言理解基准测试">
-                    MMLU
-                  </SortableHeader> */}
-                  <SortableHeader
-                    field="MMLU-Pro"
-                    tooltip="MMLU的专业版本，更具挑战性"
-                  >
-                    MMLU-Pro
-                  </SortableHeader>
-                  <SortableHeader field="DROP" tooltip="阅读理解和问答能力评测">
-                    DROP
-                  </SortableHeader>
-                  <SortableHeader field="HumanEval" tooltip="代码生成能力评测">
-                    HumanEval
-                  </SortableHeader>
-                  <SortableHeader
-                    field="inputPrice"
-                    tooltip="每百万输入token的价格（美元）"
-                  >
-                    输入价格 ($/1M)
-                  </SortableHeader>
-                  <SortableHeader
-                    field="outputPrice"
-                    tooltip="每百万输出token的价格（美元）"
-                  >
-                    输出价格 ($/1M)
-                  </SortableHeader>
-                  <SortableHeader field="license" tooltip="模型是否开源">
-                    开源
-                  </SortableHeader>
-                  <SortableHeader field="params" tooltip="模型参数量（十亿）">
-                    参数 (B)
-                  </SortableHeader>
-                  <SortableHeader
-                    field="context"
-                    tooltip="模型支持的最大上下文长度（token数）"
-                  >
-                    上下文长度
-                  </SortableHeader>
-                  <SortableHeader
-                    field="multimodal"
-                    tooltip="是否支持多模态输入（如图像）"
-                  >
-                    多模态
-                  </SortableHeader>
-                  <SortableHeader
-                    field="throughput"
-                    tooltip="模型每秒处理的token数"
-                  >
-                    吞吐量 (tokens/s)
-                  </SortableHeader>
-                  <SortableHeader
-                    field="latency"
-                    tooltip="处理请求的平均延迟时间（秒）"
-                  >
-                    延迟 (s)
-                  </SortableHeader>
+                  <TableCell colSpan={13} className="text-center">
+                    加载中...
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data.modelBenchmarks.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={13} className="text-center">
-                      加载中...
+              ) : (
+                paginatedBenchmarks.map((model, index) => (
+                  <TableRow
+                    key={model.modelId}
+                    className={
+                      // Only apply background color to first 3 rows of the first page
+                      currentPage === 1 && index < 3
+                        ? index === 0
+                          ? "bg-blue-100/50 dark:bg-blue-950/30"
+                          : index === 1
+                            ? "bg-blue-50/50 dark:bg-blue-950/20"
+                            : "bg-blue-50/30 dark:bg-blue-950/10"
+                        : "bg-background"
+                    }
+                  >
+                    <TableCell className="sticky left-0 bg-inherit px-4 font-medium md:px-2">
+                      <div className="flex items-center gap-4">
+                        <div className="relative h-6 w-6 flex-shrink-0">
+                          <OrgLogo org={model.organization} />
+                        </div>
+                        <div>
+                          {model.scorecardBlogLink ? (
+                            <a
+                              href={model.scorecardBlogLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline"
+                            >
+                              {model.name}
+                            </a>
+                          ) : (
+                            model.name
+                          )}
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {formatScore(getBenchmarkScore(model.benchmarks, "GPQA"))}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {formatScore(
+                        getBenchmarkScore(model.benchmarks, "MMLU-Pro"),
+                      )}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {formatScore(getBenchmarkScore(model.benchmarks, "DROP"))}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {formatScore(
+                        getBenchmarkScore(model.benchmarks, "HumanEval"),
+                      )}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {model.pricePerInputToken
+                        ? `$${(model.pricePerInputToken * 1000000).toFixed(3)}`
+                        : "-"}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {model.pricePerOutputToken
+                        ? `$${(model.pricePerOutputToken * 1000000).toFixed(3)}`
+                        : "-"}
+                    </TableCell>
+                    <TableCell className="flex items-center justify-center">
+                      {model.license === "Proprietary" ? (
+                        <X className="h-4 w-4 text-red-500" />
+                      ) : (
+                        <Check className="h-4 w-4 text-green-500" />
+                      )}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {model.params
+                        ? (model.params / 1000000000).toFixed(2)
+                        : "-"}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {model.context.toLocaleString()}
+                    </TableCell>
+                    <TableCell className="flex items-center justify-center">
+                      {model.multimodal ? (
+                        <Check className="h-4 w-4 text-green-500" />
+                      ) : (
+                        <X className="h-4 w-4 text-red-500" />
+                      )}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {model.throughput?.toFixed(1) ?? "-"}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {model.latency?.toFixed(2) ?? "-"}
                     </TableCell>
                   </TableRow>
-                ) : (
-                  paginatedBenchmarks.map((model, index) => (
-                    <TableRow
-                      key={model.modelId}
-                      className={
-                        // Only apply background color to first 3 rows of the first page
-                        currentPage === 1 && index < 3
-                          ? index === 0
-                            ? "bg-blue-100/50 dark:bg-blue-950/30"
-                            : index === 1
-                              ? "bg-blue-50/50 dark:bg-blue-950/20"
-                              : "bg-blue-50/30 dark:bg-blue-950/10"
-                          : ""
-                      }
-                    >
-                      <TableCell className="sticky left-0 bg-inherit px-4 font-medium md:px-2">
-                        <div className="flex items-center gap-4">
-                          <div className="relative h-6 w-6 flex-shrink-0">
-                            <OrgLogo org={model.organization} />
-                          </div>
-                          <div>
-                            {model.scorecardBlogLink ? (
-                              <a
-                                href={model.scorecardBlogLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:underline"
-                              >
-                                {model.name}
-                              </a>
-                            ) : (
-                              model.name
-                            )}
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {formatScore(
-                          getBenchmarkScore(model.benchmarks, "GPQA"),
-                        )}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {formatScore(
-                          getBenchmarkScore(model.benchmarks, "MMLU-Pro"),
-                        )}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {formatScore(
-                          getBenchmarkScore(model.benchmarks, "DROP"),
-                        )}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {formatScore(
-                          getBenchmarkScore(model.benchmarks, "HumanEval"),
-                        )}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {model.pricePerInputToken
-                          ? `$${(model.pricePerInputToken * 1000000).toFixed(3)}`
-                          : "-"}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {model.pricePerOutputToken
-                          ? `$${(model.pricePerOutputToken * 1000000).toFixed(3)}`
-                          : "-"}
-                      </TableCell>
-                      <TableCell className="flex items-center justify-center">
-                        {model.license === "Proprietary" ? (
-                          <X className="h-4 w-4 text-red-500" />
-                        ) : (
-                          <Check className="h-4 w-4 text-green-500" />
-                        )}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {model.params
-                          ? (model.params / 1000000000).toFixed(2)
-                          : "-"}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {model.context.toLocaleString()}
-                      </TableCell>
-                      <TableCell className="flex items-center justify-center">
-                        {model.multimodal ? (
-                          <Check className="h-4 w-4 text-green-500" />
-                        ) : (
-                          <X className="h-4 w-4 text-red-500" />
-                        )}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {model.throughput?.toFixed(1) ?? "-"}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {model.latency?.toFixed(2) ?? "-"}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
         <div className="mt-4 flex justify-center">
           <Pagination>
             <PaginationContent>
@@ -409,7 +401,7 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
             </PaginationContent>
           </Pagination>
         </div>
-      </div>
+      </Card>
     </motion.div>
   );
 }

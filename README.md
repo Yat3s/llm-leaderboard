@@ -4,6 +4,8 @@ A comprehensive platform for benchmarking and comparing Large Language Models (L
 
 ![screenshot](https://github.com/user-attachments/assets/8e20bc22-41fe-4316-8363-5fe06978b4d7)
 
+Live Demo: https://llm-board.com
+
 ## Features
 
 - Real-time benchmarking of LLM providers

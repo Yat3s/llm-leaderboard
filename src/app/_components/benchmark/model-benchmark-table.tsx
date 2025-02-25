@@ -60,7 +60,7 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
   const [sortField, setSortField] = useState<SortField>("GPQA");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 15;
 
   const getBenchmarkScore = (
     benchmarks: BenchmarkScore[],
@@ -178,7 +178,9 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
           <Table>
             <TableHeader className="bg-background">
               <TableRow>
-                <TableHead className="bg-background">模型</TableHead>
+                <TableHead className="whitespace-nowrap bg-background">
+                  模型
+                </TableHead>
                 <SortableHeader field="GPQA" tooltip="通用编程问答能力评测">
                   GPQA
                 </SortableHeader>
@@ -260,12 +262,12 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
                         : "bg-background"
                     }
                   >
-                    <TableCell className="sticky left-0 bg-inherit px-4 font-medium md:px-2">
-                      <div className="flex items-center gap-4">
+                    <TableCell className="sticky left-0 bg-inherit px-4 font-medium md:min-w-[200px] md:px-2">
+                      <div className="flex items-center gap-4 whitespace-nowrap">
                         <div className="relative h-6 w-6 flex-shrink-0">
                           <OrgLogo org={model.organization} />
                         </div>
-                        <div>
+                        <div className="flex-1 truncate">
                           {model.scorecardBlogLink ? (
                             <a
                               href={model.scorecardBlogLink}

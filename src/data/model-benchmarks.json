@@ -92,6 +92,97 @@
       ]
     },
     {
+      "model_id": "claude-3-5-sonnet-20240620",
+      "name": "Claude 3.5 Sonnet",
+      "organization": "anthropic",
+      "params": null,
+      "context": 200000,
+      "release_date": "2024-06-21",
+      "license": "Proprietary",
+      "price": 0.000003,
+      "throughput": 101,
+      "latency": 0.4,
+      "paper_link": null,
+      "multimodal": 1,
+      "scorecard_blog_link": "https://www.anthropic.com/news/claude-3-5-sonnet",
+      "price_per_input_token": 0.000003,
+      "price_per_output_token": 0.000015,
+      "benchmarks": [
+        {
+          "dataset_name": "BIG-Bench Hard",
+          "score": 0.931,
+          "is_self_reported": 1,
+          "analysis_method": "3-shot CoT",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://www.anthropic.com/news/claude-3-5-sonnet"
+        },
+        {
+          "dataset_name": "DROP",
+          "score": 0.871,
+          "is_self_reported": 1,
+          "analysis_method": "3-shot F1 Score",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://www.anthropic.com/news/claude-3-5-sonnet"
+        },
+        {
+          "dataset_name": "GPQA",
+          "score": 0.594,
+          "is_self_reported": 1,
+          "analysis_method": "0-shot CoT",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://www.anthropic.com/news/claude-3-5-sonnet"
+        },
+        {
+          "dataset_name": "GSM8K",
+          "score": 0.964,
+          "is_self_reported": 1,
+          "analysis_method": "0-shot CoT",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://www.anthropic.com/news/claude-3-5-sonnet"
+        },
+        {
+          "dataset_name": "HumanEval",
+          "score": 0.92,
+          "is_self_reported": 1,
+          "analysis_method": "0-shot",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://www.anthropic.com/news/claude-3-5-sonnet"
+        },
+        {
+          "dataset_name": "MATH",
+          "score": 0.711,
+          "is_self_reported": 1,
+          "analysis_method": "0-shot CoT",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://www.anthropic.com/news/claude-3-5-sonnet"
+        },
+        {
+          "dataset_name": "MGSM",
+          "score": 0.916,
+          "is_self_reported": 1,
+          "analysis_method": "0-shot CoT",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://www.anthropic.com/news/claude-3-5-sonnet"
+        },
+        {
+          "dataset_name": "MMLU",
+          "score": 0.904,
+          "is_self_reported": 1,
+          "analysis_method": "5-shot CoT",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://www.anthropic.com/news/claude-3-5-sonnet"
+        },
+        {
+          "dataset_name": "MMLU-Pro",
+          "score": 0.761,
+          "is_self_reported": 1,
+          "analysis_method": "5-shot",
+          "date_recorded": "2024-06-21",
+          "source_link": "https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro"
+        }
+      ]
+    },
+    {
       "model_id": "claude-3-5-sonnet-20241022",
       "name": "Claude 3.5 Sonnet",
       "organization": "anthropic",
@@ -259,6 +350,97 @@
           "analysis_method": "standard",
           "date_recorded": "2024-10-22",
           "source_link": "https://www.anthropic.com/news/3-5-models-and-computer-use"
+        }
+      ]
+    },
+    {
+      "model_id": "claude-3-7-sonnet-20250219",
+      "name": "Claude 3.7 Sonnet",
+      "organization": "anthropic",
+      "params": null,
+      "context": 200000,
+      "release_date": "2025-02-24",
+      "license": "Proprietary",
+      "price": 0.000003,
+      "throughput": 42,
+      "latency": 0.4,
+      "paper_link": null,
+      "multimodal": 1,
+      "scorecard_blog_link": "https://www.anthropic.com/news/claude-3-7-sonnet",
+      "price_per_input_token": 0.000003,
+      "price_per_output_token": 0.000015,
+      "benchmarks": [
+        {
+          "dataset_name": "AIME 2024",
+          "score": 0.8,
+          "is_self_reported": 1,
+          "analysis_method": "",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "dataset_name": "GPQA",
+          "score": 0.848,
+          "is_self_reported": 1,
+          "analysis_method": "Diamond",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "dataset_name": "IFEval",
+          "score": 0.932,
+          "is_self_reported": 1,
+          "analysis_method": "",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "dataset_name": "MATH-500",
+          "score": 0.962,
+          "is_self_reported": 1,
+          "analysis_method": "",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "dataset_name": "MMMLU",
+          "score": 0.861,
+          "is_self_reported": 1,
+          "analysis_method": "",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "dataset_name": "MMMU",
+          "score": 0.75,
+          "is_self_reported": 1,
+          "analysis_method": "",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "dataset_name": "SWE-bench Verified",
+          "score": 0.703,
+          "is_self_reported": 1,
+          "analysis_method": "With multiple parallel attempts and advanced scaffolding",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "dataset_name": "TAU-bench Airline",
+          "score": 0.584,
+          "is_self_reported": 1,
+          "analysis_method": "With prompt addendum to better utilize planning",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "dataset_name": "TAU-bench Retail",
+          "score": 0.812,
+          "is_self_reported": 1,
+          "analysis_method": "With prompt addendum to better utilize planning",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://www.anthropic.com/news/claude-3-7-sonnet"
         }
       ]
     },
@@ -871,7 +1053,7 @@
           "source_link": "https://huggingface.co/deepseek-ai/DeepSeek-R1"
         },
         {
-          "dataset_name": "SWE Verified",
+          "dataset_name": "SWE-bench Verified",
           "score": 0.492,
           "is_self_reported": 0,
           "analysis_method": "Resolved",
@@ -1205,7 +1387,7 @@
           "source_link": "https://github.com/deepseek-ai/DeepSeek-V3"
         },
         {
-          "dataset_name": "SWE Verified",
+          "dataset_name": "SWE-bench Verified",
           "score": 0.42,
           "is_self_reported": 0,
           "analysis_method": "Resolved",
@@ -2560,6 +2742,89 @@
       ]
     },
     {
+      "model_id": "gpt-4o-2024-05-13",
+      "name": "GPT-4o",
+      "organization": "openai",
+      "params": null,
+      "context": 128000,
+      "release_date": "2024-05-13",
+      "license": "Proprietary",
+      "price": 0.0000025,
+      "throughput": 100,
+      "latency": 0.5,
+      "paper_link": null,
+      "multimodal": 1,
+      "scorecard_blog_link": "https://openai.com/index/hello-gpt-4o/",
+      "price_per_input_token": 0.0000025,
+      "price_per_output_token": 0.00001,
+      "benchmarks": [
+        {
+          "dataset_name": "DROP",
+          "score": 0.834,
+          "is_self_reported": 1,
+          "analysis_method": "F1 Score",
+          "date_recorded": "2024-05-08",
+          "source_link": "https://openai.com/blog/gpt-4o"
+        },
+        {
+          "dataset_name": "GPQA",
+          "score": 0.536,
+          "is_self_reported": 1,
+          "analysis_method": "Accuracy",
+          "date_recorded": "2024-05-08",
+          "source_link": "https://openai.com/blog/gpt-4o"
+        },
+        {
+          "dataset_name": "HumanEval",
+          "score": 0.902,
+          "is_self_reported": 1,
+          "analysis_method": "Pass@1",
+          "date_recorded": "2024-05-08",
+          "source_link": "https://openai.com/blog/gpt-4o"
+        },
+        {
+          "dataset_name": "MATH",
+          "score": 0.766,
+          "is_self_reported": 1,
+          "analysis_method": "Accuracy",
+          "date_recorded": "2024-05-08",
+          "source_link": "https://openai.com/blog/gpt-4o"
+        },
+        {
+          "dataset_name": "MGSM",
+          "score": 0.905,
+          "is_self_reported": 1,
+          "analysis_method": "Accuracy",
+          "date_recorded": "2024-05-08",
+          "source_link": "https://openai.com/blog/gpt-4o"
+        },
+        {
+          "dataset_name": "MMLU",
+          "score": 0.887,
+          "is_self_reported": 1,
+          "analysis_method": "Accuracy",
+          "date_recorded": "2024-05-08",
+          "source_link": "https://openai.com/blog/gpt-4o"
+        },
+        {
+          "dataset_name": "MMLU-Pro",
+          "score": 0.726,
+          "is_self_reported": 1,
+          "analysis_method": "0-shot CoT",
+          "date_recorded": "2024-05-08",
+          "source_link": "https://openai.com/blog/gpt-4o"
+        },
+        {
+          "dataset_name": "MathVista",
+          "score": 0.638,
+          "is_self_reported": 1,
+          "analysis_method": "Accuracy",
+          "date_recorded": "2024-05-08",
+          "source_link": "https://openai.com/blog/gpt-4o"
+        }
+      ]
+    },
+    {
       "model_id": "gpt-4o-2024-08-06",
       "name": "GPT-4o",
       "organization": "openai",
@@ -3111,32 +3376,40 @@
           "score": 0.93,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2025-02-17",
-          "source_link": "https://x.com/xai/status/1891699715298730482"
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
         },
         {
           "dataset_name": "AIME 2025",
           "score": 0.93,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2025-02-17",
-          "source_link": "https://x.com/xai/status/1891699715298730482"
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
         },
         {
           "dataset_name": "GPQA",
-          "score": 0.85,
+          "score": 0.846,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2025-02-17",
-          "source_link": "https://x.com/xai/status/1891699715298730482"
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
         },
         {
           "dataset_name": "LiveCodeBench",
           "score": 0.79,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2025-02-17",
-          "source_link": "https://x.com/xai/status/1891699715298730482"
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
+        },
+        {
+          "dataset_name": "MMMU",
+          "score": 0.78,
+          "is_self_reported": 1,
+          "analysis_method": "accuracy",
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
         }
       ]
     },
@@ -3159,35 +3432,35 @@
       "benchmarks": [
         {
           "dataset_name": "AIME 2024",
-          "score": 0.96,
+          "score": 0.958,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2025-02-17",
-          "source_link": "https://x.com/xai/status/1891699715298730482"
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
         },
         {
           "dataset_name": "AIME 2025",
-          "score": 0.9,
+          "score": 0.903,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2025-02-17",
-          "source_link": "https://x.com/xai/status/1891699715298730482"
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
         },
         {
           "dataset_name": "GPQA",
-          "score": 0.84,
+          "score": 0.846,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2025-02-17",
-          "source_link": "https://x.com/xai/status/1891699715298730482"
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
         },
         {
           "dataset_name": "LiveCodeBench",
           "score": 0.8,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2025-02-17",
-          "source_link": "https://x.com/xai/status/1891699715298730482"
+          "date_recorded": "2025-02-24",
+          "source_link": "https://x.ai/blog/grok-3"
         }
       ]
     },
@@ -5521,12 +5794,20 @@
           "source_link": "https://www.youtube.com/live/SKBG1sqdyIU?si=lWccKHt8bnttuYta"
         },
         {
+          "dataset_name": "FrontierMath",
+          "score": 0.055,
+          "is_self_reported": 1,
+          "analysis_method": "pass@1",
+          "date_recorded": "2024-03-13",
+          "source_link": "https://openai.com/index/o1-and-new-tools-for-developers/"
+        },
+        {
           "dataset_name": "GPQA",
-          "score": 0.757,
+          "score": 0.78,
           "is_self_reported": 1,
           "analysis_method": "accuracy",
-          "date_recorded": "2024-03-13",
-          "source_link": "https://openai.com/index/learning-to-reason-with-llms/"
+          "date_recorded": "2025-02-25",
+          "source_link": "https://openai.com/index/openai-o3-mini/"
         },
         {
           "dataset_name": "GPQA Biology",
@@ -5570,11 +5851,11 @@
         },
         {
           "dataset_name": "LiveBench",
-          "score": 0.766,
+          "score": 0.67,
           "is_self_reported": 1,
           "analysis_method": "coding",
           "date_recorded": "2024-03-13",
-          "source_link": "https://openai.com/index/o1-and-new-tools-for-developers/"
+          "source_link": "https://openai.com/index/openai-o3-mini//"
         },
         {
           "dataset_name": "MATH",
@@ -5617,7 +5898,7 @@
           "source_link": "https://openai.com/index/learning-to-reason-with-llms/"
         },
         {
-          "dataset_name": "SWE-bench",
+          "dataset_name": "SWE-bench Verified",
           "score": 0.489,
           "is_self_reported": 1,
           "analysis_method": "verified",
@@ -6000,7 +6281,7 @@
           "source_link": "https://openai.com/index/openai-o3-mini/"
         },
         {
-          "dataset_name": "SWE-bench",
+          "dataset_name": "SWE-bench Verified",
           "score": 0.493,
           "is_self_reported": 1,
           "analysis_method": "verified",
@@ -8381,5 +8662,5 @@
       ]
     }
   ],
-  "updatedAt": "2025-02-24T04:52:07.367Z"
+  "updatedAt": " 2025-02-25T01:57:42.120Z"
 }

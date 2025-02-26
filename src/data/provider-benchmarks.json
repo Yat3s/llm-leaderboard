@@ -115,5 +115,83 @@
     "overallTokens": 97,
     "totalTime": 26416,
     "createdAt": "2025-02-24T06:52:12.812Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "baidu",
+    "testPrompt": "Hello",
+    "firstTokenTime": 2153,
+    "reasoningTokens": 84,
+    "reasoningTime": 15084,
+    "contentTokens": 11,
+    "contentTime": 369,
+    "overallTokens": 95,
+    "totalTime": 17607,
+    "createdAt": "2025-02-26T10:23:06.747Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "ctyun",
+    "testPrompt": "Hello",
+    "firstTokenTime": 2647,
+    "reasoningTokens": 0,
+    "reasoningTime": 0,
+    "contentTokens": 86,
+    "contentTime": 14261,
+    "overallTokens": 86,
+    "totalTime": 16909,
+    "createdAt": "2025-02-26T10:23:06.752Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "siliconflow",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1340,
+    "reasoningTokens": 132,
+    "reasoningTime": 14136,
+    "contentTokens": 10,
+    "contentTime": 895,
+    "overallTokens": 142,
+    "totalTime": 16372,
+    "createdAt": "2025-02-26T10:23:06.752Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "aliyun",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1526,
+    "reasoningTokens": 105,
+    "reasoningTime": 18186,
+    "contentTokens": 10,
+    "contentTime": 1725,
+    "overallTokens": 115,
+    "totalTime": 21438,
+    "createdAt": "2025-02-26T10:23:06.752Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "volcengine",
+    "testPrompt": "Hello",
+    "firstTokenTime": 2344,
+    "reasoningTokens": 89,
+    "reasoningTime": 15456,
+    "contentTokens": 10,
+    "contentTime": 1741,
+    "overallTokens": 99,
+    "totalTime": 19542,
+    "createdAt": "2025-02-26T10:23:06.752Z"
+  },
+  {
+    "model": "deepseek-r1",
+    "providerId": "tencentcloud",
+    "testPrompt": "Hello",
+    "firstTokenTime": 1750,
+    "reasoningTokens": 70,
+    "reasoningTime": 12071,
+    "contentTokens": 29,
+    "contentTime": 4878,
+    "overallTokens": 99,
+    "totalTime": 18702,
+    "createdAt": "2025-02-26T10:23:06.752Z"
   }
 ]

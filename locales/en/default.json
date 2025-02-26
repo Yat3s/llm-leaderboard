@@ -1,0 +1,90 @@
+{
+  "language": "Language",
+  "english": "English",
+  "chinese": "Chinese",
+  "common": {
+    "loading": "Loading...",
+    "notPublished": "Not published",
+    "visitLink": "Visit",
+    "scrollHorizontal": "← Scroll horizontally to view all data →",
+    "lastUpdated": "Updated at "
+  },
+  "categorySection": {
+    "title": "Benchmark by categories",
+    "description": "Evaluate and rank models by different types of tasks"
+  },
+  "categories": {
+    "codeGeneration": "Code Generation",
+    "generalQA": "General Q&A",
+    "logicalReasoning": "Logical Reasoning",
+    "readingComprehension": "Reading Comprehension"
+  },
+  "benchmarkTable": {
+    "title": "Performance Benchmark",
+    "description": "Evaluate models based on general, multimodal, code generation, and reading comprehension capabilities",
+    "scrollHint": "← Scroll horizontally to see all metrics →",
+    "model": "Model",
+    "inputPrice": "Input Price ($/1M)",
+    "outputPrice": "Output Price ($/1M)",
+    "openSource": "Open Source",
+    "params": "Parameters (B)",
+    "contextLength": "Context Length",
+    "multimodal": "Multimodal",
+    "throughput": "Throughput (tokens/s)",
+    "latency": "Latency (s)",
+    "tooltips": {
+      "gpqa": "General Programming Q&A Evaluation",
+      "mmluPro": "Professional version of MMLU, more challenging",
+      "drop": "Reading comprehension and Q&A capability evaluation",
+      "humanEval": "Code generation capability evaluation",
+      "inputPrice": "Price per million input tokens (USD)",
+      "outputPrice": "Price per million output tokens (USD)",
+      "license": "Whether the model is open source",
+      "params": "Model parameter count (billions)",
+      "context": "Maximum context length supported by the model (tokens)",
+      "multimodal": "Whether multimodal input (e.g., images) is supported",
+      "throughput": "Tokens processed per second by the model",
+      "latency": "Average request processing delay time (seconds)"
+    }
+  },
+  "providerBenchmark": {
+    "title": "API Performance Benchmark",
+    "description": "Compare performance and pricing of mainstream LLM service providers' APIs"
+  },
+  "providerTable": {
+    "provider": "Provider",
+    "firstTokenTime": "First Token Response Time (s)",
+    "reasoningSpeed": "Reasoning Phase Speed",
+    "generationSpeed": "Generation Phase Speed",
+    "averageSpeed": "Average Speed",
+    "inputPrice": "Input Price",
+    "outputPrice": "Output Price",
+    "freeQuota": "Free Quota",
+    "developerPlatform": "Developer Platform",
+    "tooltips": {
+      "firstTokenTime": "Time from sending request to receiving first token",
+      "reasoningSpeed": "Generation speed during reasoning phase",
+      "generationSpeed": "Generation speed during content phase",
+      "averageSpeed": "Average number of tokens generated per second",
+      "inputPrice": "Price per million input tokens (RMB)",
+      "outputPrice": "Price per million output tokens (RMB)"
+    }
+  },
+  "providerChart": {
+    "speed": {
+      "title": "API Output Speed",
+      "description": "Average generation speed of each provider's API (tokens per second)",
+      "label": "Generation Speed (tokens/s)"
+    },
+    "price": {
+      "title": "API Output Price",
+      "description": "Output price of each provider's API (USD per million tokens)",
+      "label": "Output Price (USD/1M tokens)"
+    }
+  },
+  "dashboard": {
+    "title": "LLM Leaderboard",
+    "description": "In-depth comparison of LLM performance, cost, and features based on multiple benchmarks, as well as API provider performance and pricing",
+    "autoUpdate": "Live updates"
+  }
+}

@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { BookOpen, Brain, Code, MessageSquare } from "lucide-react";
-import { SectionTitle } from "~/components/section-title";
+import { useTranslation } from "next-i18next";
+import { SectionTitle } from "~/app/[locale]/_components/section-title";
 import { Card, CardContent } from "~/components/ui/card";
 import { type ModelBenchmark } from "~/types/model";
 import { BenchmarkCategoryChart } from "./model-benchmark-category-chart";
@@ -17,6 +18,8 @@ interface ModelBenchmarkByCategoryProps {
 export function ModelBenchmarkByCategory({
   data,
 }: ModelBenchmarkByCategoryProps) {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -30,36 +33,36 @@ export function ModelBenchmarkByCategory({
       }}
     >
       <SectionTitle
-        title="模型能力评测分类"
-        description="按不同类型任务对模型进行评测和排名"
+        title={t("categorySection.title")}
+        description={t("categorySection.description")}
         updatedAt={data.updatedAt}
       />
       <Card className="-mx-4 mt-4 rounded-none p-4 md:mx-0 md:rounded-lg md:p-6">
         <CardContent>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
             <BenchmarkCategoryChart
-              title="代码生成"
+              title={t("categories.codeGeneration")}
               datasetName="HumanEval"
               colorVariable="chart-humaneval"
               icon={<Code className="h-5 w-5" />}
               data={data}
             />
             <BenchmarkCategoryChart
-              title="通用问答"
+              title={t("categories.generalQA")}
               datasetName="GPQA"
               colorVariable="chart-gpqa"
               icon={<MessageSquare className="h-5 w-5" />}
               data={data}
             />
             <BenchmarkCategoryChart
-              title="逻辑推理"
+              title={t("categories.logicalReasoning")}
               datasetName="MMLU-Pro"
               colorVariable="chart-mmlu"
               icon={<Brain className="h-5 w-5" />}
               data={data}
             />
             <BenchmarkCategoryChart
-              title="阅读理解"
+              title={t("categories.readingComprehension")}
               datasetName="DROP"
               colorVariable="chart-drop"
               icon={<BookOpen className="h-5 w-5" />}

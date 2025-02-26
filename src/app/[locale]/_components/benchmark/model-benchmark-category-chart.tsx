@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslation } from "next-i18next";
 import { OrgLogo } from "~/components/org-logo";
 import { cn } from "~/lib/utils";
 import { ModelBenchmark } from "~/types/model";
@@ -23,6 +24,8 @@ export function BenchmarkCategoryChart({
   icon,
   data,
 }: BenchmarkCategoryChartProps) {
+  const { t } = useTranslation();
+
   const topModels = [...data.modelBenchmarks]
     .map((model) => ({
       name: model.name,

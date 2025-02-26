@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SectionTitle } from "~/components/section-title";
+import { useTranslation } from "next-i18next";
+import { SectionTitle } from "~/app/[locale]/_components/section-title";
 import { Card } from "~/components/ui/card";
 import { getModelProviders } from "~/lib/llm-providers";
 import { api } from "~/trpc/react";
@@ -12,6 +13,7 @@ import { calculateAverageBenchmarks } from "./utils";
 const MODEL = "deepseek-r1";
 
 export const ProviderApiBenchmark = () => {
+  const { t } = useTranslation();
   const providers = getModelProviders();
   const { data: rawBenchmarkResults, isLoading } =
     api.benchmark.fetchProviderBenchmarks.useQuery({
@@ -41,14 +43,14 @@ export const ProviderApiBenchmark = () => {
       className="space-y-8"
     >
       <SectionTitle
-        title="API 性能基准测试"
-        description="对主流大模型服务商的 API 进行性能与价格对比"
+        title={t("providerBenchmark.title")}
+        description={t("providerBenchmark.description")}
         updatedAt={lastUpdated}
       />
 
       <Card className="p-6">
         {isLoading ? (
-          <div>Loading...</div>
+          <div>{t("common.loading")}</div>
         ) : (
           <>
             <ProviderTable benchmarkSummaries={benchmarkSummaries} />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "next-i18next";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   ChartConfig,
@@ -13,22 +14,24 @@ import { calculateAverageBenchmarks } from "./utils";
 
 const MODEL = "deepseek-r1";
 
-const chartConfig = {
-  speed: {
-    label: "生成速度（tokens/s）",
-    color: "hsl(217, 91%, 60%)",
-  },
-  price: {
-    label: "输出价格 (USD/1M tokens)",
-    color: "hsl(142, 76%, 36%)",
-  },
-} satisfies ChartConfig;
-
 interface Props {
   category: "speed" | "price";
 }
 
 export function ProviderCategoryChart({ category }: Props) {
+  const { t } = useTranslation();
+
+  const chartConfig = {
+    speed: {
+      label: t("providerChart.speed.label"),
+      color: "hsl(217, 91%, 60%)",
+    },
+    price: {
+      label: t("providerChart.price.label"),
+      color: "hsl(142, 76%, 36%)",
+    },
+  } satisfies ChartConfig;
+
   const providers = getModelProviders();
   const { data: rawBenchmarkResults, isLoading } =
     api.benchmark.fetchProviderBenchmarks.useQuery({
@@ -62,11 +65,15 @@ export function ProviderCategoryChart({ category }: Props) {
       return a.price - b.price;
     });
 
-  const chartTitle = category === "speed" ? "API 输出速度" : "API 输出价格";
+  const chartTitle =
+    category === "speed"
+      ? t("providerChart.speed.title")
+      : t("providerChart.price.title");
+
   const chartDescription =
     category === "speed"
-      ? "各供应商 API 平均生成速度（每秒生成的 token 数）"
-      : "各供应商 API 输出价格（每百万 tokens 美元）";
+      ? t("providerChart.speed.description")
+      : t("providerChart.price.description");
 
   return (
     <div className="mt-8">

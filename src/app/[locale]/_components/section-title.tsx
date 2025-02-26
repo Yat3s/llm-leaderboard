@@ -1,4 +1,5 @@
-import { PulsingDot } from "./ui/pulsing-dot";
+import { useTranslation } from "next-i18next";
+import { PulsingDot } from "../../../components/ui/pulsing-dot";
 
 interface SectionTitleProps {
   title: string;
@@ -11,6 +12,8 @@ export function SectionTitle({
   description,
   updatedAt,
 }: SectionTitleProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-2 px-4 md:space-y-4 md:px-0">
       <h1 className="text-2xl font-bold md:text-4xl">{title}</h1>
@@ -21,7 +24,7 @@ export function SectionTitle({
             <div className="flex items-center md:ml-2">
               <PulsingDot className="mt-0.5 md:mt-0" />
               <span className="ml-2">
-                自动更新于 {updatedAt.toLocaleString()}
+                {t("common.lastUpdated")} {updatedAt.toLocaleString()}
               </span>
             </div>
           )}

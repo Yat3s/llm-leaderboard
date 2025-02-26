@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpDown, HelpCircle, Link2 } from "lucide-react";
+import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { ProviderLogo } from "~/components/provider-logo";
 import { Button } from "~/components/ui/button";
@@ -41,9 +42,9 @@ export const ProviderTable = ({
     tokensPerSecond: number;
   }[];
 }) => {
+  const { t } = useTranslation();
   const providers = getModelProviders();
 
-  // Remove the API call and isLoading state since we'll get data from props
   const [sortField, setSortField] = useState<SortField>("tokensPerSecond");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
@@ -141,45 +142,47 @@ export const ProviderTable = ({
           <Table>
             <TableHeader className="bg-background">
               <TableRow>
-                <TableHead className="bg-background">服务商</TableHead>
+                <TableHead className="bg-background">
+                  {t("providerTable.provider")}
+                </TableHead>
                 <SortableHeader
                   field="firstTokenTime"
-                  tooltip="从发送请求到收到第一个 token 的时间"
+                  tooltip={t("providerTable.tooltips.firstTokenTime")}
                 >
-                  首 Token 响应时间(秒)
+                  {t("providerTable.firstTokenTime")}
                 </SortableHeader>
                 <SortableHeader
                   field="reasoningTokensPerSecond"
-                  tooltip="推理阶段的生成速度"
+                  tooltip={t("providerTable.tooltips.reasoningSpeed")}
                 >
-                  推理阶段速度
+                  {t("providerTable.reasoningSpeed")}
                 </SortableHeader>
                 <SortableHeader
                   field="contentTokensPerSecond"
-                  tooltip="内容生成阶段的速度"
+                  tooltip={t("providerTable.tooltips.generationSpeed")}
                 >
-                  生成阶段速度
+                  {t("providerTable.generationSpeed")}
                 </SortableHeader>
                 <SortableHeader
                   field="tokensPerSecond"
-                  tooltip="平均每秒生成的 token 数量"
+                  tooltip={t("providerTable.tooltips.averageSpeed")}
                 >
-                  平均速度
+                  {t("providerTable.averageSpeed")}
                 </SortableHeader>
                 <SortableHeader
                   field="inputPrice"
-                  tooltip="每百万输入 token 的价格（人民币）"
+                  tooltip={t("providerTable.tooltips.inputPrice")}
                 >
-                  输入价格
+                  {t("providerTable.inputPrice")}
                 </SortableHeader>
                 <SortableHeader
                   field="outputPrice"
-                  tooltip="每百万输出 token 的价格（人民币）"
+                  tooltip={t("providerTable.tooltips.outputPrice")}
                 >
-                  输出价格
+                  {t("providerTable.outputPrice")}
                 </SortableHeader>
-                <TableHead>免费额度</TableHead>
-                <TableHead>开发者平台</TableHead>
+                <TableHead>{t("providerTable.freeQuota")}</TableHead>
+                <TableHead>{t("providerTable.developerPlatform")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -226,15 +229,16 @@ export const ProviderTable = ({
                     <TableCell className="text-center">
                       {provider.price?.input
                         ? `¥${provider.price.input}`
-                        : "未公布"}
+                        : t("common.notPublished")}
                     </TableCell>
                     <TableCell className="text-center">
                       {provider.price?.output
                         ? `¥${provider.price.output}`
-                        : "未公布"}
+                        : t("common.notPublished")}
                     </TableCell>
                     <TableCell className="text-center">
-                      {provider.price?.trial?.toLocaleString() ?? "未公布"}
+                      {provider.price?.trial?.toLocaleString() ??
+                        t("common.notPublished")}
                     </TableCell>
                     <TableCell className="text-center">
                       <a
@@ -244,7 +248,7 @@ export const ProviderTable = ({
                         className="flex text-blue-500 hover:text-blue-600"
                       >
                         <Link2 className="h-4 w-4" />
-                        点击前往
+                        {t("common.visitLink")}
                       </a>
                     </TableCell>
                   </TableRow>
@@ -255,7 +259,7 @@ export const ProviderTable = ({
         </div>
       </div>
       <div className="mb-2 text-center text-xs text-muted-foreground md:hidden">
-        ← 左右滑动查看完整数据 →
+        {t("common.scrollHorizontal")}
       </div>
     </>
   );

@@ -1,0 +1,90 @@
+{
+  "language": "语言",
+  "english": "英文",
+  "chinese": "中文",
+  "common": {
+    "loading": "加载中...",
+    "notPublished": "未公布",
+    "visitLink": "点击前往",
+    "scrollHorizontal": "← 左右滑动查看完整数据 →",
+    "lastUpdated": "自动更新于"
+  },
+  "categorySection": {
+    "title": "模型能力评测分类",
+    "description": "按不同类型任务对模型进行评测和排名"
+  },
+  "categories": {
+    "codeGeneration": "代码生成",
+    "generalQA": "通用问答",
+    "logicalReasoning": "逻辑推理",
+    "readingComprehension": "阅读理解"
+  },
+  "benchmarkTable": {
+    "title": "性能指标评测(Benchmark)",
+    "description": "根据通用、多模态、代码生成、阅读理解等能力对模型进行评测",
+    "scrollHint": "← 横向滑动查看所有指标 →",
+    "model": "模型",
+    "inputPrice": "输入价格 ($/1M)",
+    "outputPrice": "输出价格 ($/1M)",
+    "openSource": "开源",
+    "params": "参数 (B)",
+    "contextLength": "上下文长度",
+    "multimodal": "多模态",
+    "throughput": "吞吐量 (tokens/s)",
+    "latency": "延迟 (s)",
+    "tooltips": {
+      "gpqa": "通用编程问答能力评测",
+      "mmluPro": "MMLU的专业版本，更具挑战性",
+      "drop": "阅读理解和问答能力评测",
+      "humanEval": "代码生成能力评测",
+      "inputPrice": "每百万输入token的价格（美元）",
+      "outputPrice": "每百万输出token的价格（美元）",
+      "license": "模型是否开源",
+      "params": "模型参数量（十亿）",
+      "context": "模型支持的最大上下文长度（token数）",
+      "multimodal": "是否支持多模态输入（如图像）",
+      "throughput": "模型每秒处理的token数",
+      "latency": "处理请求的平均延迟时间（秒）"
+    }
+  },
+  "providerBenchmark": {
+    "title": "API 性能基准测试",
+    "description": "对主流大模型服务商的 API 进行性能与价格对比"
+  },
+  "providerTable": {
+    "provider": "服务商",
+    "firstTokenTime": "首 Token 响应时间(秒)",
+    "reasoningSpeed": "推理阶段速度",
+    "generationSpeed": "生成阶段速度",
+    "averageSpeed": "平均速度",
+    "inputPrice": "输入价格",
+    "outputPrice": "输出价格",
+    "freeQuota": "免费额度",
+    "developerPlatform": "开发者平台",
+    "tooltips": {
+      "firstTokenTime": "从发送请求到收到第一个 token 的时间",
+      "reasoningSpeed": "推理阶段的生成速度",
+      "generationSpeed": "内容生成阶段的速度",
+      "averageSpeed": "平均每秒生成的 token 数量",
+      "inputPrice": "每百万输入 token 的价格（人民币）",
+      "outputPrice": "每百万输出 token 的价格（人民币）"
+    }
+  },
+  "providerChart": {
+    "speed": {
+      "title": "API 输出速度",
+      "description": "各供应商 API 平均生成速度（每秒生成的 token 数）",
+      "label": "生成速度（tokens/s）"
+    },
+    "price": {
+      "title": "API 输出价格",
+      "description": "各供应商 API 输出价格（每百万 tokens 美元）",
+      "label": "输出价格 (USD/1M tokens)"
+    }
+  },
+  "dashboard": {
+    "title": "大语言模型排行榜",
+    "description": "基于多项基准测试，深入对比 LLM 性能、成本与特点，API 服务商的性能与价格",
+    "autoUpdate": "定期自动更新"
+  }
+}

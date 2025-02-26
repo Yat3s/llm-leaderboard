@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpDown, Check, HelpCircle, X } from "lucide-react";
+import { useTranslation } from "next-i18next";
 import { useState } from "react";
-import { SectionTitle } from "~/components/section-title";
+import { SectionTitle } from "~/app/[locale]/_components/section-title";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import {
@@ -30,7 +31,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 import { BenchmarkScore, type ModelBenchmark } from "~/types/model";
-import { OrgLogo } from "../../../components/org-logo";
+import { OrgLogo } from "../../../../components/org-logo";
 
 type SortField =
   | "throughput"
@@ -57,6 +58,7 @@ interface ModelBenchmarkTableProps {
 }
 
 export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
+  const { t } = useTranslation();
   const [sortField, setSortField] = useState<SortField>("GPQA");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [currentPage, setCurrentPage] = useState(1);
@@ -166,12 +168,12 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
       }}
     >
       <SectionTitle
-        title="性能指标评测(Benchmark)"
-        description="根据通用、多模态、代码生成、阅读理解等能力对模型进行评测"
+        title={t("benchmarkTable.title")}
+        description={t("benchmarkTable.description")}
         updatedAt={data.updatedAt}
       />
       <div className="flex justify-end text-sm text-muted-foreground/60">
-        ← 横向滑动查看所有指标 →
+        {t("benchmarkTable.scrollHint")}
       </div>
       <Card className="mt-1 overflow-x-auto rounded-none p-4 md:mx-0 md:rounded-lg">
         <CardContent className="p-2 md:rounded-xl md:p-4">
@@ -179,64 +181,79 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
             <TableHeader className="bg-background">
               <TableRow>
                 <TableHead className="whitespace-nowrap bg-background">
-                  模型
+                  {t("benchmarkTable.model")}
                 </TableHead>
-                <SortableHeader field="GPQA" tooltip="通用编程问答能力评测">
+                <SortableHeader
+                  field="GPQA"
+                  tooltip={t("benchmarkTable.tooltips.gpqa")}
+                >
                   GPQA
                 </SortableHeader>
                 <SortableHeader
                   field="MMLU-Pro"
-                  tooltip="MMLU的专业版本，更具挑战性"
+                  tooltip={t("benchmarkTable.tooltips.mmluPro")}
                 >
                   MMLU-Pro
                 </SortableHeader>
-                <SortableHeader field="DROP" tooltip="阅读理解和问答能力评测">
+                <SortableHeader
+                  field="DROP"
+                  tooltip={t("benchmarkTable.tooltips.drop")}
+                >
                   DROP
                 </SortableHeader>
-                <SortableHeader field="HumanEval" tooltip="代码生成能力评测">
+                <SortableHeader
+                  field="HumanEval"
+                  tooltip={t("benchmarkTable.tooltips.humanEval")}
+                >
                   HumanEval
                 </SortableHeader>
                 <SortableHeader
                   field="inputPrice"
-                  tooltip="每百万输入token的价格（美元）"
+                  tooltip={t("benchmarkTable.tooltips.inputPrice")}
                 >
-                  输入价格 ($/1M)
+                  {t("benchmarkTable.inputPrice")}
                 </SortableHeader>
                 <SortableHeader
                   field="outputPrice"
-                  tooltip="每百万输出token的价格（美元）"
+                  tooltip={t("benchmarkTable.tooltips.outputPrice")}
                 >
-                  输出价格 ($/1M)
+                  {t("benchmarkTable.outputPrice")}
                 </SortableHeader>
-                <SortableHeader field="license" tooltip="模型是否开源">
-                  开源
+                <SortableHeader
+                  field="license"
+                  tooltip={t("benchmarkTable.tooltips.license")}
+                >
+                  {t("benchmarkTable.openSource")}
                 </SortableHeader>
-                <SortableHeader field="params" tooltip="模型参数量（十亿）">
-                  参数 (B)
+                <SortableHeader
+                  field="params"
+                  tooltip={t("benchmarkTable.tooltips.params")}
+                >
+                  {t("benchmarkTable.params")}
                 </SortableHeader>
                 <SortableHeader
                   field="context"
-                  tooltip="模型支持的最大上下文长度（token数）"
+                  tooltip={t("benchmarkTable.tooltips.context")}
                 >
-                  上下文长度
+                  {t("benchmarkTable.contextLength")}
                 </SortableHeader>
                 <SortableHeader
                   field="multimodal"
-                  tooltip="是否支持多模态输入（如图像）"
+                  tooltip={t("benchmarkTable.tooltips.multimodal")}
                 >
-                  多模态
+                  {t("benchmarkTable.multimodal")}
                 </SortableHeader>
                 <SortableHeader
                   field="throughput"
-                  tooltip="模型每秒处理的token数"
+                  tooltip={t("benchmarkTable.tooltips.throughput")}
                 >
-                  吞吐量 (tokens/s)
+                  {t("benchmarkTable.throughput")}
                 </SortableHeader>
                 <SortableHeader
                   field="latency"
-                  tooltip="处理请求的平均延迟时间（秒）"
+                  tooltip={t("benchmarkTable.tooltips.latency")}
                 >
-                  延迟 (s)
+                  {t("benchmarkTable.latency")}
                 </SortableHeader>
               </TableRow>
             </TableHeader>
@@ -244,7 +261,7 @@ export function ModelBenchmarkTable({ data }: ModelBenchmarkTableProps) {
               {data.modelBenchmarks.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={13} className="text-center">
-                    加载中...
+                    {t("common.loading")}
                   </TableCell>
                 </TableRow>
               ) : (

@@ -1,6 +1,6 @@
 "use client";
 
-import { ModelBenchmarkTable } from "~/app/_components/benchmark/model-benchmark-table";
+import { ModelBenchmarkTable } from "~/app/[locale]/_components/benchmark/model-benchmark-table";
 import { api } from "~/trpc/react";
 import { ModelBenchmarkByCategory } from "../../_components/benchmark/model-benchmark-by-category";
 import { ProviderApiBenchmark } from "../../_components/benchmark/provider-api-benchmark";

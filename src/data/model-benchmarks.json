@@ -3196,14 +3196,14 @@
       "context": 128000,
       "release_date": "2024-08-13",
       "license": "Proprietary",
-      "price": null,
-      "throughput": null,
-      "latency": null,
+      "price": 0.000002,
+      "throughput": 85,
+      "latency": 0.7,
       "paper_link": null,
       "multimodal": 1,
       "scorecard_blog_link": "https://x.ai/blog/grok-2",
-      "price_per_input_token": null,
-      "price_per_output_token": null,
+      "price_per_input_token": 0.000002,
+      "price_per_output_token": 0.00001,
       "benchmarks": [
         {
           "dataset_name": "DocVQA",
@@ -8662,5 +8662,5 @@
       ]
     }
   ],
-  "updatedAt": "2025-02-25T01:57:42.120Z"
+  "updatedAt": "2025-03-01T01:47:12.290Z"
 }

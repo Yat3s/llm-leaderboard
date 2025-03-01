@@ -2,7 +2,7 @@
 
 A comprehensive platform for benchmarking and comparing Large Language Models (LLMs) across different providers. This project helps developers and researchers evaluate LLM performance, costs, and capabilities.
 
-![screenshot](https://github.com/user-attachments/assets/8e20bc22-41fe-4316-8363-5fe06978b4d7)
+<img width="1660" alt="image" src="https://github.com/user-attachments/assets/24c6bb69-9dc1-4f91-8308-3d8272519d18" />
 
 Live Demo: https://llm-board.com
 

@@ -1,4 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Home() {
-  // redirect("/benchmark");
-  return <div>Home</div>;
+  redirect("/benchmark");
 }
